@@ -1,0 +1,2760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Coaching Institute App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#12203D;
+    --navy-deep:#0B1730;
+    --gold:#D4A017;
+    --gold-soft:#F0D384;
+    --teal:#1B6B79;
+    --maroon:#7A2E3D;
+    --steel:#3B6EA8;
+    --coral:#E85D4C;
+    --paper:#F5F3EC;
+    --paper-2:#FFFFFF;
+    --ink:#1A1A1A;
+    --ink-soft:#5B5F6B;
+    --radius:16px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; -webkit-tap-highlight-color:transparent;}
+  body{
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none;
+    -webkit-touch-callout:none; touch-action:manipulation;
+  }
+  input, textarea, select{
+    -webkit-user-select:text; -moz-user-select:text; -ms-user-select:text; user-select:text;
+    -webkit-touch-callout:default;
+  }
+  img{max-width:100%; display:block;}
+  .app{max-width:480px; margin:0 auto; min-height:100vh; background:var(--paper); position:relative; overflow-x:hidden;}
+
+  h1,h2,h3{font-family:'Sora',sans-serif; letter-spacing:-0.01em;}
+
+  /* ---------- COVER / HERO (Premium) ---------- */
+  .cover{
+    position:relative;
+    background:
+      radial-gradient(140% 100% at 15% -10%, rgba(212,160,23,0.4), transparent 50%),
+      radial-gradient(100% 80% at 100% 0%, rgba(27,107,121,0.35), transparent 55%),
+      linear-gradient(165deg, var(--navy) 0%, var(--navy-deep) 65%, #081326 100%);
+    color:#fff;
+    display:flex; flex-direction:column; justify-content:flex-start;
+    padding:22px 22px 120px;
+    overflow:hidden;
+  }
+  .cover::after{
+    content:"";
+    position:absolute; top:0; left:0; right:0; bottom:0;
+    background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.035) 0 2px, transparent 2px 46px);
+    pointer-events:none;
+  }
+  .cover-glow{
+    position:absolute; width:260px; height:260px; border-radius:50%; top:-90px; right:-70px;
+    background:radial-gradient(circle, rgba(212,160,23,0.35), transparent 70%); pointer-events:none;
+    animation:glow-pulse 5s ease-in-out infinite;
+  }
+  @keyframes glow-pulse{ 0%,100%{opacity:0.6;} 50%{opacity:1;} }
+  .cover-top{display:flex; flex-direction:column; align-items:center; text-align:center; position:relative; z-index:1; gap:12px;}
+  .cover-eyebrow{
+    font-family:'Sora',sans-serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--gold-soft); font-weight:600;
+  }
+  .cover-lang{
+    font-size:11px; border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:5px 12px; color:#fff; opacity:0.85;
+  }
+  .trust-badge{
+    position:relative; z-index:1; display:inline-flex; align-items:center; gap:6px; margin-top:0;
+    background:rgba(212,160,23,0.15); border:1px solid rgba(212,160,23,0.4); border-radius:100px;
+    padding:6px 13px; font-size:11px; font-weight:700; color:var(--gold-soft); width:fit-content;
+  }
+  .trust-badge svg{width:13px; height:13px;}
+  .cover-emblem{
+    position:relative; z-index:1; width:54px; height:54px; border-radius:16px; margin-top:18px;
+    background:linear-gradient(140deg, var(--gold), #b8860f);
+    display:flex; align-items:center; justify-content:center; box-shadow:0 10px 24px -8px rgba(212,160,23,0.5);
+    align-self:center;
+  }
+  .cover-emblem svg{width:26px; height:26px;}
+  .cover-mid{ position:relative; z-index:1; margin-top:16px;}
+  .coaching-name-card{
+    display:block; width:100%; text-align:center;
+    background:rgba(255,255,255,0.06);
+    border:1.5px solid var(--gold); border-radius:12px; padding:16px 14px;
+  }
+  .coaching-name{
+    font-size:clamp(18px, 6.2vw, 27px); line-height:1.15; font-weight:800;
+    background:linear-gradient(100deg, var(--gold-soft), var(--gold) 60%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    display:block; text-align:center;
+  }
+  .coaching-tagline{
+    margin-top:14px; font-size:14.5px; color:rgba(255,255,255,0.75); line-height:1.55; text-align:justify;
+  }
+  .cover-cta{position:relative; z-index:1; display:flex; gap:10px; margin-top:22px;}
+  .cta-btn{
+    font-family:'Sora',sans-serif; font-weight:700; font-size:12.5px; padding:12px 18px; border-radius:12px;
+    text-decoration:none; text-align:center; flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .cta-btn.primary{background:var(--gold); color:var(--navy-deep);}
+  .cta-btn.secondary{background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.25);}
+  .cta-btn svg{width:14px; height:14px;}
+
+  .stat-strip{
+    position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:26px;
+  }
+  .stat-box{
+    background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.15); border-radius:14px;
+    padding:12px 8px; text-align:center; backdrop-filter:blur(2px);
+  }
+  .stat-box .val{font-family:'Sora',sans-serif; font-weight:800; font-size:19px; color:var(--gold);}
+  .stat-box .lbl{font-size:9.5px; color:rgba(255,255,255,0.65); margin-top:2px; text-transform:uppercase; letter-spacing:0.04em;}
+
+  .cover-bottom{position:relative; z-index:1; display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; justify-content:center;}
+  .pill{
+    background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.18);
+    color:#fff; font-size:11px; padding:7px 12px; border-radius:100px; font-weight:500; white-space:nowrap;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:34px 22px;}
+  .section-label{
+    font-family:'Sora',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--teal); margin-bottom:8px;
+  }
+  .section-title{font-size:22px; font-weight:700; color:var(--navy); margin-bottom:18px;}
+
+  /* ---------- TEACHER PROFILE ---------- */
+  .profile{background:var(--paper-2); border-radius:24px; margin:-30px 16px 0; position:relative; z-index:2;
+    box-shadow:0 20px 40px -18px rgba(18,32,61,0.35); padding:24px 20px 28px; text-align:center;
+    border:1.5px solid var(--gold);}
+
+  .photo-wrap{position:relative; width:112px; margin:0 auto;}
+  .photo-square{
+    width:112px; height:112px; border-radius:20px;
+    background:linear-gradient(140deg, #dfe6ef, #c7d0dd);
+    border:3px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size:11px; color:var(--ink-soft); font-weight:600; overflow:hidden;
+    cursor:pointer;
+  }
+  .photo-square img{width:100%; height:100%; object-fit:cover;}
+  .photo-edit-btn{
+    position:absolute; right:-4px; bottom:-4px; width:32px; height:32px; border-radius:50%;
+    background:var(--teal); border:3px solid var(--paper-2); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  }
+  .photo-edit-btn svg{width:14px; height:14px;}
+  #photoInput{display:none;}
+
+  /* Running ticker for teacher name */
+  .ticker-wrap{
+    margin-top:16px; overflow:hidden; white-space:nowrap; border-top:1px dashed #e1ddd0; border-bottom:1px dashed #e1ddd0;
+    padding:8px 0;
+  }
+  .ticker{
+    display:inline-block; padding-left:100%;
+    font-family:'Sora',sans-serif; font-weight:700; font-size:16px; color:var(--navy);
+    animation: ticker-scroll 9s linear infinite;
+  }
+  .ticker b{color:var(--gold); margin:0 10px;}
+  @keyframes ticker-scroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-100%);}
+  }
+  @media (prefers-reduced-motion: reduce){ .ticker{animation:none; padding-left:0;} }
+
+  .qual-grid{margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:10px; text-align:left;}
+  .qual-card{background:var(--paper); border-radius:14px; padding:12px 14px; border:1.5px solid var(--gold);}
+  .qual-card .k{font-size:10px; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-soft); font-weight:600;}
+  .qual-card .v{font-size:14px; font-weight:600; color:var(--navy); margin-top:3px;}
+  .status-chip{
+    margin-top:14px; display:inline-flex; align-items:center; gap:6px; background:#EAF6E9; color:#1F7A3D;
+    font-size:12px; font-weight:600; padding:7px 14px; border-radius:100px;
+  }
+  .status-dot{width:7px; height:7px; border-radius:50%; background:#1F7A3D;}
+
+  /* ---------- SELECTED ASPIRANTS ---------- */
+  .merit-board{background:var(--navy); border-radius:20px; padding:22px 18px; position:relative; overflow:hidden; border:1.5px solid var(--gold);}
+  .merit-board::before{
+    content:"";position:absolute; top:-40%; right:-20%; width:220px; height:220px; border-radius:50%;
+    background:radial-gradient(circle, rgba(212,160,23,0.28), transparent 70%);
+  }
+  .merit-board .section-label{color:var(--gold-soft);}
+  .merit-board .section-title{color:#fff; position:relative; z-index:1;}
+  .merit-list{display:flex; flex-direction:column; gap:10px; position:relative; z-index:1;}
+  .merit-item{
+    display:flex; align-items:center; gap:12px; background:rgba(255,255,255,0.06);
+    border:1.5px solid var(--gold); border-radius:14px; padding:12px 14px;
+  }
+  .merit-rank{
+    font-family:'Fraunces',serif; font-weight:700; font-size:18px; color:var(--gold);
+    width:30px; text-align:center;
+  }
+  .merit-info b{color:#fff; font-size:14px; display:block;}
+  .merit-info span{color:rgba(255,255,255,0.6); font-size:12px;}
+
+  /* ---------- BIO / PURPOSE / AREAS ---------- */
+  .bio-text{font-size:14.5px; line-height:1.7; color:var(--ink-soft);}
+  .purpose-quote{
+    border-left:3px solid var(--gold); padding-left:16px; font-family:'Fraunces',serif; font-size:18px;
+    font-weight:600; color:var(--navy); line-height:1.45; font-style:italic;
+  }
+  .area-chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .area-chip{
+    font-size:12.5px; font-weight:600; color:var(--teal); background:#E7F1F2; border-radius:10px; padding:8px 12px;
+  }
+  .silver-card{
+    background:var(--paper-2); border:1.5px solid #C7CDD6; border-radius:18px; padding:20px;
+    box-shadow:0 8px 20px -12px rgba(18,32,61,0.15);
+  }
+
+  /* ---------- FORM SECTIONS ---------- */
+  .form-card{background:var(--paper-2); border-radius:20px; padding:22px 18px; box-shadow:0 12px 30px -20px rgba(18,32,61,0.3); border:1.5px solid var(--gold);}
+  .field{margin-bottom:14px;}
+  .field label{display:block; font-size:12px; font-weight:600; color:var(--navy); margin-bottom:6px;}
+  .field input, .field select{
+    width:100%; border:1.5px solid #E3DFD3; background:var(--paper); border-radius:12px; padding:12px 14px;
+    font-size:14px; font-family:'Inter',sans-serif; color:var(--ink);
+  }
+  .field input:focus, .field select:focus{outline:2px solid var(--teal); outline-offset:1px; border-color:var(--teal);}
+  .row-2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .btn{
+    width:100%; border:none; border-radius:14px; padding:14px; font-family:'Sora',sans-serif;
+    font-weight:700; font-size:14.5px; cursor:pointer; margin-top:4px;
+  }
+  .btn-primary{background:var(--coral); color:#fff;}
+  .btn-primary:disabled{opacity:0.6;}
+  .btn-outline{background:transparent; border:1.5px solid var(--navy); color:var(--navy);}
+  .form-status{font-size:12.5px; font-weight:600; margin-top:10px; text-align:center; min-height:16px;}
+
+  /* ---------- STUDY SETS (Grammar / TGT / PGT / LT / GIC — 5 sets each) ---------- */
+  .ss-cat-title{font-family:'Sora',sans-serif; font-size:16px; font-weight:700; color:var(--navy); margin-bottom:12px;}
+  .ss-category{margin-bottom:30px;}
+  .ss-category:last-child{margin-bottom:0;}
+  .plan-lock-badge{
+    display:inline-block; background:#FDF1D6; color:#946B00; font-size:10px; font-weight:700;
+    padding:3px 9px; border-radius:100px; margin-left:6px; vertical-align:middle;
+  }
+  .ss-sets-list.plan-locked{filter:blur(3px); opacity:0.5; pointer-events:none; user-select:none;}
+  .ss-set-row{
+    display:flex; align-items:center; gap:12px; background:var(--paper-2); border:1.5px solid var(--gold);
+    border-radius:14px; padding:12px 14px; margin-bottom:9px;
+  }
+  .ss-set-num{
+    width:30px; height:30px; border-radius:50%; background:var(--navy); color:var(--gold); font-family:'Sora',sans-serif;
+    font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+  }
+  .ss-set-title{flex:1; font-size:13.5px; font-weight:700; color:var(--navy);}
+  .ss-read-btn{
+    font-family:'Sora',sans-serif; font-weight:700; font-size:12px; background:var(--coral); color:#fff;
+    border-radius:10px; padding:9px 16px; cursor:pointer; flex:0 0 auto;
+  }
+
+  footer{padding:30px 22px 50px; text-align:center; color:var(--ink-soft); font-size:11.5px;}
+
+  /* ---------- Hidden tap-to-edit system (no visible admin UI) ---------- */
+  .editable{
+    position:relative; cursor:pointer;
+    -webkit-user-select:none; -moz-user-select:none; user-select:none;
+    -webkit-touch-callout:none;
+  }
+  .tap-flash{outline:2px solid var(--gold); outline-offset:3px; border-radius:6px; transition:outline-color 0.4s ease;}
+
+  .edit-modal-overlay{
+    display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,23,48,0.55); z-index:300;
+    align-items:flex-end; justify-content:center;
+  }
+  .edit-modal-overlay.open{display:flex;}
+  .edit-modal{
+    background:#fff; width:100%; max-width:480px; border-radius:22px 22px 0 0; padding:20px 20px 26px;
+    box-shadow:0 -10px 30px rgba(0,0,0,0.25); max-height:80vh; overflow-y:auto;
+  }
+  .edit-modal h3{font-size:15px; color:var(--navy); margin-bottom:12px;}
+  .edit-modal textarea{
+    width:100%; min-height:90px; border:1.5px solid #E3DFD3; background:var(--paper); border-radius:12px;
+    padding:12px 14px; font-size:14px; font-family:'Inter',sans-serif; color:var(--ink); resize:vertical;
+  }
+  .edit-modal-actions{display:flex; gap:10px; margin-top:14px;}
+  .edit-modal-actions .btn{margin-top:0;}
+  .sync-badge{
+    position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:60;
+    background:var(--navy); color:#fff; font-size:11px; font-weight:600; padding:6px 14px; border-radius:100px;
+    opacity:0; transition:opacity 0.3s ease; pointer-events:none;
+  }
+  .sync-badge.show{opacity:0.92;}
+
+  /* ---------- Hidden Admin Panel (7-tap footer to open) ---------- */
+  .admin-panel-overlay{
+    display:none; position:fixed; top:0; left:0; right:0; bottom:0; width:100%; height:100%;
+    background:#0B1730; z-index:200; overflow-y:auto; padding:20px;
+  }
+  .admin-panel-overlay.open{display:block;}
+  .admin-panel-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;}
+  .admin-panel-header h2{color:#fff; font-family:'Sora',sans-serif; font-size:18px;}
+  .admin-panel-close{background:#fff; border:none; border-radius:50%; width:34px; height:34px; font-size:16px; cursor:pointer;}
+  .admin-section{background:rgba(255,255,255,0.06); border-radius:16px; padding:16px; margin-bottom:16px; border:1px solid rgba(212,160,23,0.3);}
+  .admin-section h3{color:var(--gold-soft); font-family:'Sora',sans-serif; font-size:13px; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.06em;}
+  .admin-set-row{
+    display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.06);
+    border-radius:10px; padding:10px 12px; margin-bottom:8px; color:#fff; font-size:12.5px;
+  }
+  .admin-set-row button{
+    background:var(--gold); color:var(--navy); border:none; border-radius:8px; padding:6px 12px; font-weight:700;
+    font-size:11.5px; cursor:pointer;
+  }
+  .admin-set-block{background:rgba(255,255,255,0.04); border-radius:10px; padding:8px; margin-bottom:8px;}
+
+  .admin-accordion{margin-bottom:16px;}
+  .admin-acc-item{background:rgba(255,255,255,0.06); border-radius:16px; margin-bottom:12px; border:1px solid rgba(212,160,23,0.3); overflow:hidden;}
+  .admin-acc-header{
+    width:100%; display:flex; align-items:center; justify-content:space-between; background:transparent; border:none;
+    padding:15px 16px; color:var(--gold-soft); font-family:'Sora',sans-serif; font-size:13px; font-weight:700;
+    text-transform:uppercase; letter-spacing:0.05em; cursor:pointer;
+  }
+  .admin-acc-chevron{width:16px; height:16px; flex-shrink:0; transition:transform 0.2s ease;}
+  .admin-acc-item.open .admin-acc-chevron{transform:rotate(180deg);}
+  .admin-acc-body{display:none; padding:0 16px 16px;}
+  .admin-acc-item.open .admin-acc-body{display:block;}
+  .admin-acc-subhead{color:#fff; font-size:11.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; opacity:0.7; margin:14px 0 8px;}
+  .admin-acc-subhead:first-child{margin-top:0;}
+
+  /* ---------- LIVE CLASS ---------- */
+  .live-join-card{
+    background:var(--paper-2); border:1.5px solid var(--gold); border-radius:18px; padding:22px 20px; text-align:center;
+  }
+  .live-status-badge{
+    display:inline-block; font-family:'Sora',sans-serif; font-size:11.5px; font-weight:700; letter-spacing:0.03em;
+    color:#8A8F99; background:#EEECE3; padding:6px 14px; border-radius:100px;
+  }
+  .live-status-badge.on{color:#1F7A3D; background:#E3F5E9;}
+  .live-pdf-wrap{
+    position:relative; width:100%; aspect-ratio:3/4; background:#12203D; border-radius:16px; overflow:hidden;
+    display:flex; align-items:center; justify-content:center; touch-action:none;
+  }
+  .live-pdf-wrap canvas{max-width:none; display:block; will-change:transform;}
+  .live-zoom-hint{text-align:center; font-size:10.5px; color:var(--ink-soft); margin-top:6px; opacity:0.75;}
+  .live-pdf-empty{position:absolute; color:rgba(255,255,255,0.55); font-size:12.5px; text-align:center; padding:0 20px;}
+  /* ---------- SMART DIGITAL BOARD FRAME (wraps the shared-PDF screen) ---------- */
+  .board-frame{
+    background:linear-gradient(155deg, #2b2f36 0%, #14161b 55%, #060708 100%);
+    border-radius:22px; padding:12px 12px 0; box-shadow:0 14px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  .board-topbar{
+    display:flex; align-items:center; gap:8px; padding:2px 4px 10px;
+    font-family:'Sora',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+    color:rgba(255,255,255,0.45);
+  }
+  .board-led{
+    width:8px; height:8px; border-radius:50%; background:#2ECC71; flex:0 0 auto;
+    box-shadow:0 0 6px 2px rgba(46,204,113,0.7);
+    animation:boardLedPulse 1.8s ease-in-out infinite;
+  }
+  @keyframes boardLedPulse{0%,100%{opacity:1;} 50%{opacity:0.35;}}
+  .board-topbar-label{flex:1;}
+  .board-topbar-live{color:#2ECC71; letter-spacing:0.14em;}
+  .board-participants-btn{
+    display:flex; align-items:center; gap:4px; background:rgba(255,255,255,0.08); border:none; border-radius:100px;
+    padding:5px 10px; color:rgba(255,255,255,0.75); font-family:'Sora',sans-serif; font-size:10.5px; font-weight:700;
+    letter-spacing:normal; text-transform:none; cursor:pointer;
+  }
+  .live-participant-row{
+    display:flex; align-items:center; gap:10px; padding:11px 4px; border-bottom:1px solid #EEECE3; font-size:13.5px; color:var(--ink);
+  }
+  .live-participant-row:last-child{border-bottom:none;}
+  .live-participant-avatar{
+    width:30px; height:30px; border-radius:50%; background:var(--teal); color:#fff; font-size:12px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; flex:0 0 auto; text-transform:uppercase;
+  }
+  .live-participant-avatar.teacher{background:var(--gold); color:var(--navy-deep);}
+  .live-participant-role{font-size:10.5px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em;}
+  .board-screen{
+    position:relative; border-radius:10px; overflow:hidden;
+    box-shadow:inset 0 0 0 2px rgba(0,0,0,0.6), inset 0 2px 14px rgba(0,0,0,0.55);
+  }
+  .board-glare{
+    position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(115deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0) 78%, rgba(255,255,255,0.05) 100%);
+  }
+  .annot-canvas{position:absolute; inset:0; pointer-events:none; touch-action:none;}
+  .annot-canvas.tool-active{pointer-events:auto;}
+  .board-toolbar{display:flex; gap:6px; margin-top:10px;}
+  .board-tool-btn{
+    flex:1; background:var(--paper); border:1.5px solid transparent; border-radius:10px; padding:9px 4px;
+    font-size:10px; font-weight:700; color:var(--ink); cursor:pointer; text-align:center; font-family:inherit;
+  }
+  .board-tool-btn .ic{display:block; font-size:16px; margin-bottom:2px;}
+  .board-tool-btn.active{border-color:var(--gold); background:#FFF6DE; color:var(--navy);}
+  .board-tool-btn.clear-btn{color:var(--coral);}
+  .board-bottombar{
+    display:flex; align-items:center; justify-content:center; padding:9px 4px 11px;
+    font-family:'Sora',sans-serif; font-size:9.5px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase;
+    color:rgba(255,255,255,0.28);
+  }
+  .live-page-nav{
+    display:flex; align-items:center; justify-content:space-between; margin-top:10px; background:var(--paper);
+    border-radius:12px; padding:8px 14px;
+  }
+  .live-page-nav button{
+    background:var(--navy); color:#fff; border:none; border-radius:8px; padding:8px 14px; font-weight:700; font-size:12.5px; cursor:pointer;
+  }
+  .live-page-nav span{font-size:12px; color:var(--ink-soft); font-weight:600;}
+  .live-controls{display:flex; gap:8px; margin-top:14px;}
+  .live-mic-btn, .live-hand-btn, .live-leave-btn{
+    flex:1; border:none; border-radius:12px; padding:12px 8px; font-family:'Sora',sans-serif; font-weight:700;
+    font-size:12px; cursor:pointer;
+  }
+  .live-mic-btn{background:#EEECE3; color:var(--ink);}
+  .live-mic-btn.unmuted{background:#1F7A3D; color:#fff;}
+  .live-hand-btn{background:var(--gold); color:var(--navy-deep);}
+  .live-hand-btn.active{background:var(--coral); color:#fff;}
+  .live-leave-btn{background:transparent; border:1.5px solid var(--coral); color:var(--coral);}
+  .live-hand-row{
+    display:flex; align-items:center; justify-content:space-between; background:var(--paper);
+    border-radius:10px; padding:9px 12px; margin-bottom:8px;
+  }
+  .live-hand-row button{
+    background:var(--teal); color:#fff; border:none; border-radius:8px; padding:6px 12px; font-size:11px; font-weight:700; cursor:pointer;
+  }
+
+  /* ---------- LIVE CLASS FOCUS MODE (hide everything else while a class is joined) ---------- */
+  body.live-focus-mode .app > *:not(#liveClassSection){display:none !important;}
+  body.live-focus-mode #liveClassSection{padding-top:26px;}
+  .admin-video-row{
+    display:flex; align-items:center; justify-content:space-between; color:rgba(255,255,255,0.75);
+    font-size:11.5px; padding:6px 8px;
+  }
+  .admin-video-remove{
+    background:var(--coral); color:#fff; border:none; border-radius:6px; width:20px; height:20px; font-size:11px; cursor:pointer;
+  }
+  .admin-add-video{
+    display:block; width:100%; background:transparent; border:1.5px dashed var(--teal); color:var(--teal);
+    border-radius:8px; padding:7px; font-size:11.5px; font-weight:700; cursor:pointer; margin-top:4px;
+  }
+  .admin-mark-btn{
+    display:block; width:100%; background:rgba(212,160,23,0.12); border:1.5px solid var(--gold);
+    color:var(--gold-soft); border-radius:10px; padding:11px; font-family:'Sora',sans-serif; font-weight:700;
+    font-size:12px; cursor:pointer; margin-top:10px; text-align:center;
+  }
+
+  /* ---------- SPLASH / COVER SCREEN ---------- */
+  .splash{
+    position:fixed; top:0; left:0; right:0; bottom:0; z-index:300; background:var(--navy-deep);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:24px; transition:opacity 0.5s ease, visibility 0.5s ease;
+  }
+  .splash.hide{opacity:0; visibility:hidden; pointer-events:none;}
+  .splash-badge{
+    width:76px; height:76px; border-radius:50%; background:var(--gold); display:flex; align-items:center;
+    justify-content:center; margin-bottom:22px; box-shadow:0 0 0 6px rgba(212,160,23,0.18);
+  }
+  .splash-badge svg{width:34px; height:34px;}
+  .splash-title{
+    font-family:'Sora',sans-serif; font-weight:800; font-size:44px; color:#fff; letter-spacing:-0.01em;
+  }
+  .splash-tagline{
+    font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:22px; color:var(--gold);
+    margin-top:8px;
+  }
+  .splash-sub{font-size:12.5px; color:rgba(255,255,255,0.55); margin-top:20px; letter-spacing:0.06em; text-transform:uppercase;}
+
+  /* ---------- DEMO VIDEO (free, homepage) ---------- */
+  .demo-video-card{max-width:100%;}
+
+  /* ---------- Video cards (Demo Video + per-Set videos) ---------- */
+  .vl-video-card{
+    border-radius:14px; overflow:hidden; margin-bottom:12px; background:#000;
+    box-shadow:0 8px 18px -12px rgba(18,32,61,0.5); border:1.5px solid var(--gold);
+  }
+  .vl-video-thumb{
+    position:relative; width:100%; aspect-ratio:16/9; background:#0d0d0d center/cover no-repeat; cursor:pointer;
+  }
+  .vl-video-thumb .play-btn{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:52px; height:52px; border-radius:50%; background:rgba(255,0,0,0.9);
+    display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(0,0,0,0.4);
+  }
+  .vl-video-thumb .play-btn svg{width:20px; height:20px; margin-left:2px;}
+  .vl-video-meta{display:flex; align-items:center; gap:8px; padding:10px 12px; background:#12203D;}
+  .vl-video-meta .yt-icon{
+    width:22px; height:16px; background:#FF0000; border-radius:4px; flex:0 0 auto;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .vl-video-meta .yt-icon svg{width:10px; height:10px;}
+  .vl-video-meta .title{color:#fff; font-size:12.5px; font-weight:600; line-height:1.3;}
+  .vl-video-card iframe{width:100%; aspect-ratio:16/9; border:none; display:block;}
+  .qv-video-locked{
+    display:flex; align-items:center; gap:8px; background:#FDF1D6; color:#946B00; font-size:12.5px; font-weight:600;
+    border-radius:12px; padding:12px 14px; margin-bottom:14px; cursor:pointer;
+  }
+
+  /* ---------- PREMIUM / LOCKED PDF LIBRARY ---------- */
+  .unlock-gate{
+    background:var(--navy); border-radius:20px; padding:24px 20px; text-align:center; border:1.5px solid var(--gold);
+  }
+  .unlock-gate .lock-icon{
+    width:52px; height:52px; border-radius:50%; background:var(--gold); margin:0 auto 14px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .unlock-gate h3{color:#fff; font-size:17px; margin-bottom:6px;}
+  .unlock-gate p{color:rgba(255,255,255,0.65); font-size:12.5px; line-height:1.5; margin-bottom:16px;}
+  .qr-box{background:#fff; border-radius:16px; padding:14px; display:inline-block; margin-bottom:14px;}
+  .qr-box img{width:170px; height:170px; display:block;}
+  .upi-line{color:var(--gold-soft); font-size:12.5px; font-weight:700; margin-bottom:16px; word-break:break-all;}
+  .unlock-gate .field label{color:rgba(255,255,255,0.75);}
+  .unlock-gate .field input{background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.25); color:#fff;}
+  .unlock-msg{font-size:12px; font-weight:600; margin-top:10px; min-height:16px;}
+  .teaser-title{color:var(--gold-soft) !important;}
+  .pdf-pay-price{
+    font-family:'Sora',sans-serif; font-weight:800; font-size:26px; color:var(--gold); margin-bottom:4px;
+  }
+
+  .restore-link{
+    display:block; margin-top:12px; font-size:11.5px; color:var(--gold-soft); text-decoration:underline; cursor:pointer;
+  }
+
+  /* ---------- HELP DESK ---------- */
+  .help-actions{display:flex; gap:10px; margin-bottom:18px;}
+  .help-btn{
+    flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; padding:16px 10px;
+    border-radius:16px; text-decoration:none; font-family:'Sora',sans-serif; font-weight:700; font-size:12.5px;
+    border:1.5px solid var(--gold);
+  }
+  .help-btn.whatsapp{background:#25D366; color:#fff; border-color:#25D366;}
+  .help-btn.call{background:var(--navy); color:#fff;}
+  .help-btn svg{width:22px; height:22px;}
+  .faq-item{background:var(--paper-2); border-radius:14px; margin-bottom:10px; border:1.5px solid var(--gold); overflow:hidden;}
+  .faq-q{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer; font-size:13px; font-weight:700; color:var(--navy);}
+  .faq-a{display:none; padding:0 16px 14px; font-size:12.5px; color:var(--ink-soft); line-height:1.6;}
+  .faq-item.open .faq-a{display:block;}
+  .faq-item.open .chevron{transform:rotate(180deg);}
+
+  /* ---------- WHAT YOU GET / PRICING CARD ---------- */
+  .offer-card{
+    background:linear-gradient(165deg, var(--navy) 0%, var(--navy-deep) 100%); border-radius:22px;
+    padding:26px 20px; border:1.5px solid var(--gold); position:relative; overflow:hidden;
+  }
+  .offer-card::before{
+    content:""; position:absolute; top:-30%; right:-15%; width:200px; height:200px; border-radius:50%;
+    background:radial-gradient(circle, rgba(212,160,23,0.25), transparent 70%);
+  }
+  .offer-headline{
+    position:relative; z-index:1; font-family:'Sora',sans-serif; font-weight:800; font-size:17px; color:#fff;
+    line-height:1.4; margin-bottom:4px;
+  }
+  .offer-headline b{color:var(--gold);}
+  .offer-sub{position:relative; z-index:1; color:rgba(255,255,255,0.55); font-size:11.5px; margin-bottom:18px;}
+  .offer-daily-title{
+    position:relative; z-index:1; font-family:'Sora',sans-serif; font-size:12px; font-weight:700; color:var(--gold-soft);
+    text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;
+  }
+  .offer-list{position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px;}
+  .offer-list-item{
+    display:flex; align-items:center; gap:7px; background:rgba(255,255,255,0.06); border-radius:10px;
+    padding:8px 10px; font-size:11px; color:#fff; font-weight:500;
+  }
+  .offer-list-item .num{
+    width:16px; height:16px; border-radius:50%; background:var(--gold); color:var(--navy); font-size:9px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; flex:0 0 auto;
+  }
+  .offer-duration{
+    position:relative; z-index:1; background:rgba(212,160,23,0.12); border:1px dashed var(--gold);
+    border-radius:12px; padding:12px 14px; font-size:12px; color:var(--gold-soft); margin-bottom:20px; line-height:1.6;
+  }
+  .offer-pricing-title{
+    position:relative; z-index:1; font-family:'Sora',sans-serif; font-size:12px; font-weight:700; color:var(--gold-soft);
+    text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px;
+  }
+  .price-row{
+    position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between;
+    background:rgba(255,255,255,0.06); border-radius:14px; padding:14px 16px; margin-bottom:12px;
+    border-left:4px solid var(--gold); box-shadow:0 6px 14px rgba(0,0,0,0.28);
+  }
+  .price-row:last-child{margin-bottom:0;}
+  .price-row.highlight{background:var(--gold); }
+  .price-row .plan{color:#fff; font-size:13px; font-weight:700;}
+  .price-row.highlight .plan{color:var(--navy);}
+  .price-row .amount{color:var(--gold-soft); font-family:'Sora',sans-serif; font-weight:800; font-size:16px;}
+  .price-row.highlight .amount{color:var(--navy);}
+  .price-tgt{background:rgba(27,107,121,0.22); border-left-color:var(--teal);}
+  .price-tgt .plan{color:#9FE0E7;}
+  .price-pgt{background:rgba(122,46,61,0.22); border-left-color:var(--maroon);}
+  .price-pgt .plan{color:#F3AEBC;}
+  .price-lt{background:rgba(59,110,168,0.22); border-left-color:var(--steel);}
+  .price-lt .plan{color:#AFCBEE;}
+  .price-gic{background:rgba(212,160,23,0.18); border-left-color:var(--gold);}
+  .price-gic .plan{color:var(--gold-soft);}
+  .syllabus-banner{
+    position:relative; z-index:1; background:linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.02));
+    border:1px solid rgba(212,160,23,0.55); border-radius:10px; padding:12px 10px; margin-bottom:16px;
+    font-family:'Sora',sans-serif; font-weight:800; font-size:14.5px; color:var(--gold-soft); text-align:center;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 10px rgba(0,0,0,0.3);
+  }
+  .syllabus-list{grid-template-columns:1fr !important;}
+
+  .pdf-viewer-overlay{
+    display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(11,23,48,0.85); z-index:150; padding:20px;
+  }
+  .pdf-viewer-overlay.open{display:flex; flex-direction:column;}
+  .pdf-viewer-bar{display:flex; justify-content:flex-end; margin-bottom:10px;}
+  .pdf-viewer-close{background:#fff; border:none; border-radius:50%; width:36px; height:36px; font-size:18px; cursor:pointer;}
+  .pdf-viewer-overlay iframe{flex:1; width:100%; border:none; border-radius:12px; background:#fff;}
+
+  /* ---------- Questions Viewer (plain reading — colour is saved for the downloaded PDF) ---------- */
+  .qv-card{
+    padding:14px 0; border-bottom:1px solid #EFEBDD;
+  }
+  .qv-card:last-child{border-bottom:none;}
+  .qv-num{
+    display:inline-flex; width:22px; height:22px; border-radius:50%; background:var(--navy); color:#fff; font-size:11px; font-weight:800;
+    align-items:center; justify-content:center; margin-right:8px; vertical-align:middle;
+  }
+  .qv-question{font-size:13.5px; font-weight:600; color:var(--ink); line-height:1.5; display:inline;}
+  .qv-options{margin-top:6px; margin-left:30px; display:flex; flex-direction:column; gap:4px;}
+  .qv-opt{font-size:12.5px; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="splash" id="splashScreen">
+  <div class="splash-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#12203D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+  <div class="splash-title" id="splashTitleText">Shree English Classes</div>
+  <div class="splash-sub">Tap to continue</div>
+</div>
+
+<div class="app">
+
+  <!-- ================= COVER / HERO ================= -->
+  <div class="cover">
+    <div class="cover-glow"></div>
+    <div class="cover-top">
+      <div class="cover-eyebrow">Coaching Institute</div>
+      <div class="cover-lang">ENGLISH</div>
+      <div class="trust-badge editable" data-key="trustBadge" data-label="Trust Badge">
+        <svg viewBox="0 0 24 24" fill="var(--gold)"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg>
+        <span id="txt-trustBadge">500+ Aspirants Trained</span>
+      </div>
+    </div>
+
+    <div class="cover-emblem">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#12203D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+    </div>
+
+    <div class="cover-mid">
+      <div class="coaching-name-card editable" data-key="coachingLine1" data-label="Coaching Name">
+        <span class="coaching-name"><span id="txt-coachingLine1">Your Coaching</span> <span id="txt-coachingHighlight">Name</span></span>
+      </div>
+      <p class="coaching-tagline editable" data-key="tagline" data-label="Tagline">
+        <span id="txt-tagline">Guided prep for TGT · PGT · LT · GIC Lecturer aspirants, with self-taught video lectures.</span>
+      </p>
+    </div>
+
+    <div class="cover-cta">
+      <a href="#registrationSection" class="cta-btn primary">Register Now</a>
+      <a href="#demoVideoCard" class="cta-btn secondary">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Watch Demo
+      </a>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat-box editable" data-key="statStudents" data-label="Stat: Students"><div class="val" id="txt-statStudents">500+</div><div class="lbl">Students</div>
+      </div>
+      <div class="stat-box editable" data-key="statSuccess" data-label="Stat: Success Rate"><div class="val" id="txt-statSuccess">92%</div><div class="lbl">Success Rate</div>
+      </div>
+      <div class="stat-box editable" data-key="statYears" data-label="Stat: Years"><div class="val" id="txt-statYears">8+</div><div class="lbl">Years</div>
+      </div>
+    </div>
+
+    <div class="cover-bottom">
+      <span class="pill">TGT / PGT</span>
+      <span class="pill">LT Grade</span>
+      <span class="pill">UPPSC / UPHESC</span>
+    </div>
+  </div>
+
+  <!-- ================= TEACHER PROFILE ================= -->
+  <div class="profile">
+    <div class="photo-wrap">
+      <div class="photo-square" id="photoSquare"><span>Photo</span></div>
+      <div class="photo-edit-btn" id="photoEditBtn" title="Edit photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      </div>
+      <input type="file" id="photoInput" accept="image/*">
+    </div>
+
+    <div class="ticker-wrap editable" data-key="teacherLine" data-label="Teacher Name / Qualification">
+      <div class="ticker"><span id="txt-teacherLine">Teacher Name &bull; M.A., B.Ed. &bull; Teacher Name &bull; M.A., B.Ed. &bull;</span></div>
+    </div>
+
+    <div class="qual-grid">
+      <div class="qual-card editable" data-key="qual1" data-label="Qualification"><div class="k">Qualification</div><div class="v" id="txt-qual1">M.A. English, B.Ed.</div>
+      </div>
+      <div class="qual-card editable" data-key="qual2" data-label="Exams Qualified"><div class="k">Exams Qualified</div><div class="v" id="txt-qual2">UGC-NET, UPTET</div>
+      </div>
+      <div class="qual-card editable" data-key="qual3" data-label="Current Status"><div class="k">Current Status</div><div class="v" id="txt-qual3">Assistant Teacher</div>
+      </div>
+      <div class="qual-card editable" data-key="qual4" data-label="Experience"><div class="k">Experience</div><div class="v" id="txt-qual4">8+ Years Teaching</div>
+      </div>
+    </div>
+
+    <div class="status-chip"><span class="status-dot"></span> Currently Taking Live Batches</div>
+  </div>
+
+  <!-- ================= DEMO VIDEO (Free) ================= -->
+  <section>
+    <div class="section-label">Watch Now</div>
+    <h2 class="section-title editable" data-key="demoVideoUrl" data-label="Demo Video (YouTube Link)">Free Demo Video</h2>
+    <div class="vl-video-card demo-video-card" id="demoVideoCard">
+      <div class="vl-video-thumb" id="demoVideoThumb">
+        <div class="play-btn"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+      </div>
+      <div class="vl-video-meta">
+        <div class="yt-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="title">Class Demo — Watch Free</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SELECTED ASPIRANTS ================= -->
+  <section>
+    <div class="merit-board">
+      <div class="section-label">Results</div>
+      <h2 class="section-title">Selected Aspirants</h2>
+      <div class="merit-list">
+        <div class="merit-item"><div class="merit-rank">01</div><div class="merit-info"><b>Aspirant Name</b><span>Selected — TGT English, 2025</span></div></div>
+        <div class="merit-item"><div class="merit-rank">02</div><div class="merit-info"><b>Aspirant Name</b><span>Selected — LT Grade, 2025</span></div></div>
+        <div class="merit-item"><div class="merit-rank">03</div><div class="merit-info"><b>Aspirant Name</b><span>Selected — PGT English, 2024</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BIO ================= -->
+  <section>
+    <div class="section-label">About</div>
+    <h2 class="section-title">Bio</h2>
+    <div class="silver-card">
+      <p class="bio-text editable" data-key="bio" data-label="Bio">
+        <span id="txt-bio">A short journey of the teacher will be written here — how they self-studied to qualify their exams, and now teach aspirants the same method. 3–4 lines, simple and honest tone.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= PURPOSE ================= -->
+  <section>
+    <div class="section-label">Why This Coaching</div>
+    <h2 class="section-title">Purpose</h2>
+    <div class="silver-card">
+      <p class="purpose-quote editable" data-key="purpose" data-label="Purpose Quote">
+        <span id="txt-purpose">"Har aspirant ko wahi structured guidance milni chahiye jo mujhe khud dhoondhni padi thi."</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= AREAS COVERED ================= -->
+  <section>
+    <div class="section-label">Coverage</div>
+    <h2 class="section-title">Areas Covered</h2>
+    <div class="silver-card">
+      <div class="area-chips">
+        <span class="area-chip">English Grammar</span>
+        <span class="area-chip">Literature</span>
+        <span class="area-chip">Literary Theories</span>
+        <span class="area-chip">Literary Devices/Terms</span>
+        <span class="area-chip">Figures of Speech</span>
+        <span class="area-chip">Pedagogy</span>
+        <span class="area-chip">Syllabus-based MCQs</span>
+        <span class="area-chip">Previous Papers</span>
+        <span class="area-chip">Mock Tests</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INQUIRY FORM ================= -->
+  <section>
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Inquiry Form</h2>
+    <div class="form-card">
+      <div class="field"><label>Aspirant Name</label><input type="text" id="inquiry-name" placeholder="Full name"></div>
+      <div class="row-2">
+        <div class="field"><label>State</label><input type="text" id="inquiry-state" placeholder="State"></div>
+        <div class="field"><label>District</label><input type="text" id="inquiry-district" placeholder="District"></div>
+      </div>
+      <div class="field"><label>Mobile</label><input type="tel" id="inquiry-mobile" placeholder="10-digit mobile number"></div>
+      <div class="field"><label>Email</label><input type="email" id="inquiry-email" placeholder="you@example.com"></div>
+      <div class="field">
+        <label>Select Exam</label>
+        <select id="inquiry-exam">
+          <option value="">Choose one</option>
+          <option>TGT</option>
+          <option>PGT</option>
+          <option>LT</option>
+          <option>GIC Lecturer</option>
+          <option>UPPSC</option>
+          <option>UPHESC</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" id="inquiry-submit">Submit Inquiry</button>
+      <div class="form-status" id="inquiry-status"></div>
+    </div>
+  </section>
+
+  <!-- ================= STUDY SETS (Free to read after login, PDF download is paid) ================= -->
+  <section>
+    <div class="section-label">Study Material</div>
+    <h2 class="section-title">Practice Sets</h2>
+
+    <div class="unlock-gate" id="loginGate">
+      <div class="lock-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#12203D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
+      <h3 class="teaser-title">25 Sets · 1250+ Questions Available</h3>
+      <p>Login to avail 25 Sets for free</p>
+      <div class="field" style="text-align:left;">
+        <label style="color:rgba(255,255,255,0.75);">Enter any 7-digit login ID</label>
+        <input type="text" id="loginIdInput" maxlength="7" placeholder="e.g. 1234567">
+      </div>
+      <button class="btn btn-primary" id="loginBtn" style="max-width:100%;">Login &amp; Start Reading Free</button>
+      <div class="unlock-msg" id="loginMsg"></div>
+    </div>
+
+    <div id="studySetsWrap" style="display:none; margin-top:22px;"></div>
+  </section>
+
+  <!-- ================= VIDEO LIBRARY (separate, paid per category) ================= -->
+  <section>
+    <div class="section-label">Premium</div>
+    <h2 class="section-title">Video Library</h2>
+    <div id="videoLibraryWrap"></div>
+  </section>
+
+  <!-- ================= LIVE CLASS ================= -->
+  <section id="liveClassSection">
+    <div class="section-label">Live</div>
+    <h2 class="section-title">Live Class</h2>
+
+    <div id="liveJoinScreen" class="live-join-card">
+      <div id="liveStatusBadge" class="live-status-badge">● Not Live Right Now</div>
+      <p style="font-size:12.5px; color:var(--ink-soft); margin:10px 0 16px; line-height:1.55;">
+        Join to hear the teacher live and follow along with shared slides. You can raise your hand any time to ask something.
+      </p>
+      <div class="field" style="text-align:left;">
+        <label>Your Name</label>
+        <input type="text" id="liveNameInput" placeholder="Enter your name">
+      </div>
+      <button class="btn btn-primary" id="liveJoinStudentBtn" style="margin-top:6px;">Join Live Class</button>
+      <button class="btn btn-outline" id="liveTeacherLoginBtn" style="margin-top:10px;">Teacher Login</button>
+      <div class="unlock-msg" id="liveJoinMsg"></div>
+    </div>
+
+    <div id="liveRoom" style="display:none;">
+      <div class="board-frame">
+        <div class="board-topbar">
+          <span class="board-led"></span>
+          <span class="board-topbar-label">Smart Digital Board</span>
+          <button class="board-participants-btn" id="liveParticipantsBtn">👥 <span id="liveParticipantsCount">0</span></button>
+          <span class="board-topbar-live">● On Air</span>
+        </div>
+        <div class="board-screen">
+          <div class="live-pdf-wrap" id="livePdfWrap">
+            <canvas id="livePdfCanvas"></canvas>
+            <canvas id="liveAnnotCanvas" class="annot-canvas"></canvas>
+            <div id="livePdfEmpty" class="live-pdf-empty">Waiting for teacher to share slides…</div>
+            <div class="board-glare"></div>
+          </div>
+        </div>
+        <div class="board-bottombar">EngTeck Board</div>
+      </div>
+      <div class="board-toolbar" id="liveAnnotToolbar" style="display:none;">
+        <button class="board-tool-btn" id="liveToolPointer" data-tool="pointer"><span class="ic">👆</span>Pointer</button>
+        <button class="board-tool-btn" id="liveToolMarker" data-tool="marker"><span class="ic">🖊️</span>Marker</button>
+        <button class="board-tool-btn" id="liveToolHighlighter" data-tool="highlighter"><span class="ic">🖍️</span>Highlighter</button>
+        <button class="board-tool-btn clear-btn" id="liveAnnotClearBtn"><span class="ic">🧹</span>Clear</button>
+      </div>
+      <div class="live-zoom-hint">Pinch to zoom · drag to pan · double-tap to reset</div>
+      <div class="live-page-nav" id="liveTeacherPageNav" style="display:none;">
+        <button id="livePrevPage">‹ Prev</button>
+        <span id="livePageLabel">Page 0 / 0</span>
+        <button id="liveNextPage">Next ›</button>
+      </div>
+      <div class="live-controls">
+        <button class="live-mic-btn" id="liveMicBtn">🎤 Muted</button>
+        <button class="live-hand-btn" id="liveRaiseHandBtn">✋ Raise Hand</button>
+        <button class="live-leave-btn" id="liveLeaveBtn">Leave</button>
+      </div>
+
+      <div id="liveTeacherPanel" style="display:none; margin-top:18px;">
+        <div class="admin-acc-subhead" style="margin-top:0;">Upload Slides (PDF only)</div>
+        <input type="file" id="livePdfUpload" accept="application/pdf" style="font-size:12px;">
+        <button class="btn btn-outline" id="liveShareLinkBtn" style="margin-top:12px;">Share Class Link with Students</button>
+        <div class="admin-acc-subhead">Raised Hands</div>
+        <div id="liveHandsList" style="font-size:12.5px; color:var(--ink-soft);">No hands raised.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHAT YOU GET / PRICING ================= -->
+  <section>
+    <div class="offer-card">
+      <div class="offer-headline">After Registration — <b>100 PDFs Embedded</b>, each with <b>75 Questions</b></div>
+      <div class="offer-sub">Plus daily updated content, every single day:</div>
+
+      <div class="offer-list">
+        <div class="offer-list-item"><span class="num">1</span>Video Updates</div>
+        <div class="offer-list-item"><span class="num">2</span>PDF Updates</div>
+        <div class="offer-list-item"><span class="num">3</span>MCQs</div>
+        <div class="offer-list-item"><span class="num">4</span>Practice Sets</div>
+        <div class="offer-list-item"><span class="num">5</span>Literary Theories</div>
+        <div class="offer-list-item"><span class="num">6</span>Literary Devices</div>
+        <div class="offer-list-item"><span class="num">7</span>Advance Grammar</div>
+        <div class="offer-list-item"><span class="num">8</span>Old Papers (Year-wise)</div>
+        <div class="offer-list-item"><span class="num">9</span>TGT/PGT/LT/GIC Specifics</div>
+        <div class="offer-list-item"><span class="num">10</span>Self Assessment</div>
+      </div>
+
+      <div class="offer-duration">
+        📅 <b>Duration:</b> TGT — 3 Months &nbsp;|&nbsp; PGT, LT &amp; GIC Lecturer — 5 Months
+      </div>
+
+      <div class="offer-pricing-title">Subscription (With Videos)</div>
+      <div class="price-row price-tgt"><span class="plan">TGT (3 months)</span><span class="amount">₹1999</span></div>
+      <div class="price-row price-pgt"><span class="plan">PGT (5 months)</span><span class="amount">₹4999</span></div>
+      <div class="price-row price-lt"><span class="plan">LT (5 months)</span><span class="amount">₹4999</span></div>
+      <div class="price-row price-gic"><span class="plan">GIC Lecturer (5 months)</span><span class="amount">₹4999</span></div>
+    </div>
+  </section>
+
+  <!-- ================= COMPLETE SYLLABUS THROUGH PDFs ================= -->
+  <section>
+    <div class="offer-card">
+      <div class="syllabus-banner">Complete Syllabus Through PDFs</div>
+      <div class="offer-list syllabus-list">
+        <div class="offer-list-item"><span class="num">1</span>Writers and their personal details</div>
+        <div class="offer-list-item"><span class="num">2</span>All important works details</div>
+        <div class="offer-list-item"><span class="num">3</span>Work-wise important notes</div>
+        <div class="offer-list-item"><span class="num">4</span>All Advance Grammar rules/notes</div>
+        <div class="offer-list-item"><span class="num">5</span>Literary theories</div>
+        <div class="offer-list-item"><span class="num">6</span>Literary devices</div>
+        <div class="offer-list-item"><span class="num">7</span>Figures of Speech</div>
+        <div class="offer-list-item"><span class="num">8</span>Daily 50 MCQ (Grammar)</div>
+        <div class="offer-list-item"><span class="num">9</span>Daily one practice set (50 Q — theories, devices &amp; figures)</div>
+        <div class="offer-list-item"><span class="num">10</span>Daily one set of 50 Q (Literature)</div>
+        <div class="offer-list-item"><span class="num">11</span>125 Question-set every Tuesday and Friday (All topics)</div>
+      </div>
+
+      <div class="price-row price-tgt" style="margin-top:16px;"><span class="plan">TGT</span><span class="amount">₹599<span style="font-size:10px; color:rgba(255,255,255,0.5);">/mo</span></span></div>
+      <div class="price-row price-pgt"><span class="plan">PGT</span><span class="amount">₹999<span style="font-size:10px; color:rgba(255,255,255,0.5);">/mo</span></span></div>
+      <div class="price-row price-lt"><span class="plan">LT</span><span class="amount">₹999<span style="font-size:10px; color:rgba(255,255,255,0.5);">/mo</span></span></div>
+      <div class="price-row price-gic"><span class="plan">GIC Lecturer</span><span class="amount">₹999<span style="font-size:10px; color:rgba(255,255,255,0.5);">/mo</span></span></div>
+    </div>
+  </section>
+
+  <!-- ================= REGISTRATION FORM ================= -->
+  <section id="registrationSection">
+    <div class="section-label">Join Now</div>
+    <h2 class="section-title">Registration Form</h2>
+    <div class="form-card">
+      <div class="field"><label>Aspirant Name</label><input type="text" id="reg-name" placeholder="Full name"></div>
+      <div class="row-2">
+        <div class="field"><label>State</label><input type="text" id="reg-state" placeholder="State"></div>
+        <div class="field"><label>District</label><input type="text" id="reg-district" placeholder="District"></div>
+      </div>
+      <div class="field"><label>Mobile</label><input type="tel" id="reg-mobile" placeholder="10-digit mobile number"></div>
+      <div class="field"><label>Email</label><input type="email" id="reg-email" placeholder="you@example.com"></div>
+      <div class="field">
+        <label>Select Exam</label>
+        <select id="reg-exam">
+          <option value="">Choose one</option>
+          <option>TGT</option>
+          <option>PGT</option>
+          <option>LT</option>
+          <option>GIC Lecturer</option>
+          <option>UPPSC</option>
+          <option>UPHESC</option>
+        </select>
+      </div>
+      <div class="field" id="reg-planTypeWrap" style="display:none;">
+        <label>Plan Type</label>
+        <select id="reg-planType">
+          <option value="">Choose one</option>
+          <option value="withVideos">With Videos</option>
+          <option value="withoutVideos">Without Videos</option>
+        </select>
+      </div>
+      <div class="field" id="reg-planWrap" style="display:none;">
+        <label>Select Plan Duration</label>
+        <select id="reg-duration">
+          <option value="1">1 Month</option>
+          <option value="3">3 Months</option>
+          <option value="5">5 Months</option>
+        </select>
+      </div>
+      <div class="field" id="reg-amountWrap" style="display:none; text-align:center; background:var(--paper); border-radius:14px; padding:16px 12px; border:1.5px solid var(--gold);">
+        <label id="reg-amountLabel">Amount to Pay</label>
+        <div id="reg-amountDisplay" style="font-family:'Sora',sans-serif; font-weight:800; font-size:28px; color:var(--navy); margin-top:2px;">₹0</div>
+        <img id="reg-qr" src="" alt="Payment QR" style="width:170px; height:170px; margin:12px auto 10px; display:block; border-radius:12px; border:1.5px solid #E3DFD3;">
+        <button type="button" id="reg-payNowBtn" class="btn btn-primary" style="margin-top:0;">Pay Now via UPI App</button>
+        <div style="font-size:12px; color:var(--teal); font-weight:700; margin-top:10px; line-height:1.5;">QR पेमेंट करते ही फॉर्म ऑटो सबमिट हो जाएगा।</div>
+        <div style="font-size:10.5px; color:var(--ink-soft); margin-top:4px; line-height:1.5;">(Tap "Pay Now" above — after paying, coming back here will auto-submit. If you scanned the QR separately with another app, tick the box below yourself.)</div>
+        <label style="display:flex; align-items:center; gap:8px; margin-top:14px; text-align:left; font-size:12.5px; font-weight:600; color:var(--navy); cursor:pointer;">
+          <input type="checkbox" id="reg-paidConfirm" style="width:18px; height:18px; flex-shrink:0;">
+          I have completed the ₹<span id="reg-paidConfirmAmt">0</span> payment
+        </label>
+      </div>
+      <div class="field" id="reg-expiryWrap" style="display:none;">
+        <label>Plan Valid Till (if paid today)</label>
+        <input type="text" id="reg-expiry" readonly style="background:#ECE8DA;">
+      </div>
+      <button class="btn btn-primary" id="reg-submit">Register</button>
+      <div class="form-status" id="reg-status"></div>
+      <button class="btn btn-outline">Already Registered? Login</button>
+    </div>
+  </section>
+
+  <!-- ================= HELP DESK ================= -->
+  <section>
+    <div class="section-label">Support</div>
+    <h2 class="section-title editable" data-key="supportNumber" data-label="Support Mobile Number">Help Desk</h2>
+    <div class="help-actions">
+      <a class="help-btn whatsapp" id="helpWhatsapp" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.18-1.77 1.24-.45.06-1.02.09-1.65-.1-.38-.12-.87-.28-1.5-.55-2.64-1.14-4.36-3.8-4.5-3.98-.13-.18-1.08-1.44-1.08-2.75 0-1.3.68-1.94.92-2.2.24-.26.53-.33.7-.33h.5c.16 0 .38-.03.58.44.22.53.75 1.83.82 1.96.07.13.11.29.02.47-.09.18-.14.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.27-.12.53.16.26.7 1.16 1.5 1.88 1.03.92 1.9 1.21 2.16 1.35.26.13.41.11.56-.07.16-.18.66-.77.84-1.03.18-.26.35-.22.59-.13.24.09 1.53.72 1.79.85.26.13.44.2.5.31.06.11.06.65-.16 1.27z"/></svg>
+        WhatsApp
+      </a>
+      <a class="help-btn call" id="helpCall" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Call Us
+      </a>
+    </div>
+
+    <div id="faqList">
+      <div class="faq-item">
+        <div class="faq-q"><span>PDF not opening?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+        <div class="faq-a">Check your internet connection and tap "View" again. If it still doesn't open, contact us on WhatsApp.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Video not loading?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+        <div class="faq-a">Try on Wifi or a strong mobile data connection. Videos load from YouTube, so weak networks may take longer.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Content didn't unlock after payment?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+        <div class="faq-a">After payment, get your access code from the teacher on WhatsApp, then enter that mobile number and code in the app.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><span>Lost access after reinstalling the app?</span><svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+        <div class="faq-a">Use the "Restore Access" link — enter your registered mobile number and your access will be restored, no code needed.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footerTapZone">Shreeyog Website and App Designer &bull; Pithoragarh, Uttarakhand</footer>
+
+</div>
+
+<div class="sync-badge" id="syncBadge">Saved ✓</div>
+
+<div class="edit-modal-overlay" id="liveParticipantsOverlay">
+  <div class="edit-modal">
+    <h3>Live Class · Joined (<span id="liveParticipantsModalCount">0</span>)</h3>
+    <div id="liveParticipantsList"></div>
+    <div class="edit-modal-actions">
+      <button class="btn btn-outline" id="liveParticipantsCloseBtn" style="margin-top:0;">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="edit-modal-overlay" id="editModalOverlay">
+  <div class="edit-modal">
+    <h3 id="editModalLabel">Edit</h3>
+    <textarea id="editModalInput"></textarea>
+    <div class="edit-modal-actions">
+      <button class="btn btn-outline" id="editModalCancel" style="flex:1;">Cancel</button>
+      <button class="btn btn-primary" id="editModalSave" style="flex:1;">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="edit-modal-overlay" id="multiModalOverlay">
+  <div class="edit-modal">
+    <h3 id="multiModalLabel">Add</h3>
+    <div id="multiModalFields"></div>
+    <div class="edit-modal-actions">
+      <button class="btn btn-outline" id="multiModalCancel" style="flex:1;">Cancel</button>
+      <button class="btn btn-primary" id="multiModalSave" style="flex:1;">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="pdf-viewer-overlay" id="questionsViewerOverlay" style="background:var(--paper); padding:0;">
+  <div style="background:var(--navy); padding:16px 18px; display:flex; align-items:center; justify-content:space-between;">
+    <h3 id="qvTitle" style="color:#fff; font-size:15px; font-family:'Sora',sans-serif;"></h3>
+    <button class="pdf-viewer-close" id="qvClose">✕</button>
+  </div>
+  <div id="qvCards" style="flex:1; overflow-y:auto; padding:16px 18px;"></div>
+  <button class="btn btn-primary" id="qvDownloadBtn" style="margin:0 16px 16px; width:calc(100% - 32px);">⬇ Download Colourful PDF</button>
+</div>
+
+<!-- Per-PDF payment (₹25) — shown when a student taps Download PDF -->
+<div class="edit-modal-overlay" id="pdfPayOverlay">
+  <div class="edit-modal">
+    <h3>Download this PDF</h3>
+    <div class="unlock-gate" style="border:none; padding:0; text-align:center;">
+      <div class="pdf-pay-price">₹25</div>
+      <p>Scan &amp; pay, then enter your mobile number to check access. Once we confirm your payment, this PDF unlocks instantly.</p>
+      <div class="qr-box"><img id="pdfPayQr" src="" alt="Payment QR Code"></div>
+      <div class="upi-line editable" data-key="upiId" data-label="UPI ID" style="position:relative; color:var(--teal);">
+        UPI ID: <span id="pdfPayUpiLine">yourupi@bank</span>
+      </div>
+      <div class="field" style="text-align:left;">
+        <label style="color:var(--navy);">Your Mobile Number</label>
+        <input type="tel" id="pdfPayMobileInput" placeholder="10-digit mobile number">
+      </div>
+      <button class="btn btn-primary" id="pdfPayCheckBtn" style="max-width:100%;">I've Paid — Check Access</button>
+      <div class="unlock-msg" id="pdfPayMsg"></div>
+    </div>
+    <div class="edit-modal-actions">
+      <button class="btn btn-outline" id="pdfPayCancel" style="flex:1;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Video Library category payment — separate from PDF Sets -->
+<div class="edit-modal-overlay" id="videoPayOverlay">
+  <div class="edit-modal">
+    <h3 id="videoPayTitle">Unlock this Video Category</h3>
+    <div class="unlock-gate" style="border:none; padding:0; text-align:center;">
+      <p>Scan &amp; pay, then enter your mobile number to check access. Once we confirm your payment, all videos in this category unlock instantly.</p>
+      <div class="qr-box"><img id="videoPayQr" src="" alt="Payment QR Code"></div>
+      <div class="upi-line editable" data-key="upiId" data-label="UPI ID" style="position:relative; color:var(--teal);">
+        UPI ID: <span id="videoPayUpiLine">yourupi@bank</span>
+      </div>
+      <div class="field" style="text-align:left;">
+        <label style="color:var(--navy);">Your Mobile Number</label>
+        <input type="tel" id="videoPayMobileInput" placeholder="10-digit mobile number">
+      </div>
+      <button class="btn btn-primary" id="videoPayCheckBtn" style="max-width:100%;">I've Paid — Check Access</button>
+      <div class="unlock-msg" id="videoPayMsg"></div>
+    </div>
+    <div class="edit-modal-actions">
+      <button class="btn btn-outline" id="videoPayCancel" style="flex:1;">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Hidden Admin Panel — opens only via 7 taps on the footer text. No visible entry point. -->
+<div class="admin-panel-overlay" id="adminPanelOverlay">
+  <div class="admin-panel-header">
+    <h2>Admin Panel</h2>
+    <button class="admin-panel-close" id="adminPanelClose">✕</button>
+  </div>
+
+  <div class="admin-accordion" id="adminAccordion">
+    <div id="adminCategorySections"></div>
+
+    <div class="admin-acc-item" data-acc="inquiry">
+      <button class="admin-acc-header"><span>Inquiry Section</span><svg class="admin-acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+      <div class="admin-acc-body">
+        <button class="btn btn-primary" id="viewInquiryBtn" style="max-width:100%;">View Inquiry</button>
+        <div id="adminInquiriesList" style="margin-top:12px; display:none;"></div>
+      </div>
+    </div>
+
+    <div class="admin-acc-item" data-acc="registration">
+      <button class="admin-acc-header"><span>Registration Section</span><svg class="admin-acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+      <div class="admin-acc-body">
+        <button class="btn btn-primary" id="viewRegistrationBtn" style="max-width:100%;">View Registration</button>
+        <div id="adminRegistrationsList" style="margin-top:12px; display:none;"></div>
+      </div>
+    </div>
+
+    <div class="admin-acc-item" data-acc="liveclass">
+      <button class="admin-acc-header"><span>Live Class Settings</span><svg class="admin-acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+      <div class="admin-acc-body">
+        <p style="color:rgba(255,255,255,0.6); font-size:11px; margin-bottom:10px;">This PIN is what the teacher enters to start the Live Class as host.</p>
+        <button class="btn btn-primary" id="changeLivePinBtn" style="max-width:100%;">Change Teacher PIN</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-section">
+    <p style="color:rgba(255,255,255,0.6); font-size:11.5px; line-height:1.6;">
+      All other text on the site (name, tagline, bio, stats, etc.) is edited directly — tap that text 4 times to open its edit box.
+    </p>
+  </div>
+</div>
+
+<!-- jsPDF for generating colourful question-paper PDFs on the fly -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Agora RTC (Live Class audio) + PDF.js (rendering shared slides) -->
+<script src="https://download.agora.io/sdk/release/AgoraRTC_N.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<!-- Firebase SDK (compat, so it works with plain <script> tags — no build step needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-database-compat.js"></script>
+
+<script>
+  // ---------- Extra safety net: block text selection / long-press menus everywhere except real inputs ----------
+  document.addEventListener('selectstart', (e) => {
+    const tag = e.target.tagName;
+    if(tag !== 'INPUT' && tag !== 'TEXTAREA'){ e.preventDefault(); }
+  });
+  document.addEventListener('contextmenu', (e) => {
+    const tag = e.target.tagName;
+    if(tag !== 'INPUT' && tag !== 'TEXTAREA'){ e.preventDefault(); }
+  });
+
+  // ---------- Firebase init ----------
+  const firebaseConfig = {
+    apiKey: "AIzaSyANchZxgTrgpbsBQIA5QRDQYfS8jCpr22g",
+    authDomain: "english-coaching-22eb5.firebaseapp.com",
+    databaseURL: "https://english-coaching-22eb5-default-rtdb.firebaseio.com",
+    projectId: "english-coaching-22eb5",
+    storageBucket: "english-coaching-22eb5.firebasestorage.app",
+    messagingSenderId: "782691368600",
+    appId: "1:782691368600:web:aeaaddd47c159cc9f3daed"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  function showSyncBadge(text){
+    const badge = document.getElementById('syncBadge');
+    badge.textContent = text || 'Saved ✓';
+    badge.classList.add('show');
+    setTimeout(() => badge.classList.remove('show'), 1400);
+  }
+
+  // ---------- Photo upload (compressed, stored in Realtime Database) ----------
+  const photoInput = document.getElementById('photoInput');
+  const photoSquare = document.getElementById('photoSquare');
+  const photoEditBtn = document.getElementById('photoEditBtn');
+  [photoSquare, photoEditBtn].forEach(el => el.addEventListener('click', () => photoInput.click()));
+  photoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        const maxW = 420;
+        const scale = Math.min(1, maxW / img.width);
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+        photoSquare.innerHTML = '<img src="' + dataUrl + '" alt="Teacher photo">';
+        db.ref('photo').set(dataUrl).then(() => showSyncBadge('Photo saved ✓'));
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+  db.ref('photo').on('value', (snap) => {
+    const val = snap.val();
+    if(val){ photoSquare.innerHTML = '<img src="' + val + '" alt="Teacher photo">'; }
+  });
+
+  // ---------- Text content (Firebase-backed) ----------
+  const defaultContent = {
+    coachingLine1: "Shree English Classes",
+    tagline: "Guided prep for TGT · PGT · LT · GIC Lecturer aspirants, with self-taught video lectures.",
+    teacherLine: "Teacher Name • M.A., B.Ed. • Teacher Name • M.A., B.Ed. •",
+    qual1: "M.A. English, B.Ed.",
+    qual2: "UGC-NET, UPTET",
+    qual3: "Assistant Teacher",
+    qual4: "8+ Years Teaching",
+    bio: "A short journey of the teacher will be written here — how they self-studied to qualify their exams, and now teach aspirants the same method. 3–4 lines, simple and honest tone.",
+    purpose: "\"Every aspirant deserves the same structured guidance I had to find on my own.\"",
+    demoVideoUrl: "",
+    upiId: "yourupi@bank",
+    supportNumber: "9999999999",
+    trustBadge: "500+ Aspirants Trained",
+    statStudents: "500+",
+    statSuccess: "92%",
+    statYears: "8+",
+    liveTeacherPin: "1234"
+  };
+  let currentContent = Object.assign({}, defaultContent);
+
+  function applyContent(content){
+    currentContent = Object.assign({}, defaultContent, content || {});
+    const parts = currentContent.coachingLine1.split(' ');
+    const highlight = parts.pop();
+    document.getElementById('txt-coachingLine1').textContent = parts.join(' ');
+    document.getElementById('txt-coachingHighlight').textContent = highlight;
+    document.getElementById('splashTitleText').textContent = currentContent.coachingLine1;
+    document.getElementById('txt-tagline').textContent = currentContent.tagline;
+    document.getElementById('txt-teacherLine').textContent = currentContent.teacherLine;
+    document.getElementById('txt-qual1').textContent = currentContent.qual1;
+    document.getElementById('txt-qual2').textContent = currentContent.qual2;
+    document.getElementById('txt-qual3').textContent = currentContent.qual3;
+    document.getElementById('txt-qual4').textContent = currentContent.qual4;
+    document.getElementById('txt-bio').textContent = currentContent.bio;
+    document.getElementById('txt-purpose').textContent = currentContent.purpose;
+    document.getElementById('txt-trustBadge').textContent = currentContent.trustBadge;
+    document.getElementById('txt-statStudents').textContent = currentContent.statStudents;
+    document.getElementById('txt-statSuccess').textContent = currentContent.statSuccess;
+    document.getElementById('txt-statYears').textContent = currentContent.statYears;
+
+    // Demo video
+    const demoThumb = document.getElementById('demoVideoThumb');
+    const demoId = getYouTubeId(currentContent.demoVideoUrl);
+    demoThumb.setAttribute('data-ytid', demoId || '');
+    demoThumb.setAttribute('data-url', currentContent.demoVideoUrl || '');
+    demoThumb.style.backgroundImage = demoId ? "url('https://img.youtube.com/vi/" + demoId + "/hqdefault.jpg')" : "";
+
+    // QR + UPI (per-PDF payment modal)
+    document.getElementById('pdfPayUpiLine').textContent = currentContent.upiId;
+    const upiLink = 'upi://pay?pa=' + encodeURIComponent(currentContent.upiId) + '&pn=' + encodeURIComponent(currentContent.coachingLine1 || 'StudyPoint') + '&am=25&cu=INR';
+    document.getElementById('pdfPayQr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(upiLink);
+
+    // QR + UPI (video category payment modal)
+    document.getElementById('videoPayUpiLine').textContent = currentContent.upiId;
+    const videoUpiLink = 'upi://pay?pa=' + encodeURIComponent(currentContent.upiId) + '&pn=' + encodeURIComponent(currentContent.coachingLine1 || 'StudyPoint') + '&cu=INR';
+    document.getElementById('videoPayQr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(videoUpiLink);
+
+    // Help Desk contact links
+    document.getElementById('helpWhatsapp').href = 'https://wa.me/91' + currentContent.supportNumber;
+    document.getElementById('helpCall').href = 'tel:+91' + currentContent.supportNumber;
+
+    checkLoginState();
+  }
+  db.ref('content').on('value', (snap) => applyContent(snap.val()));
+
+  function saveContentField(key, value){
+    db.ref('content/' + key).set(value).then(() => showSyncBadge());
+  }
+
+  // Single-field text modal (for content fields)
+  const overlay = document.getElementById('editModalOverlay');
+  const modalLabel = document.getElementById('editModalLabel');
+  const modalInput = document.getElementById('editModalInput');
+  const modalCancel = document.getElementById('editModalCancel');
+  const modalSave = document.getElementById('editModalSave');
+  let currentEditKey = null;
+
+  function openEditModal(key, label){
+    currentEditKey = key;
+    modalLabel.textContent = 'Edit: ' + label;
+    modalInput.value = currentContent[key] || '';
+    overlay.classList.add('open');
+  }
+  modalCancel.addEventListener('click', () => overlay.classList.remove('open'));
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) overlay.classList.remove('open'); });
+  modalSave.addEventListener('click', () => {
+    if(currentEditKey){ saveContentField(currentEditKey, modalInput.value); }
+    overlay.classList.remove('open');
+  });
+
+  // ---------- Hidden 4-tap-to-edit (no visible admin button, no pencils) ----------
+  const tapState = new WeakMap();
+  document.querySelectorAll('.editable[data-key]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.getSelection && window.getSelection().removeAllRanges();
+      const now = Date.now();
+      const state = tapState.get(el) || { count: 0, last: 0 };
+      if(now - state.last > 900){ state.count = 0; }
+      state.count += 1;
+      state.last = now;
+      tapState.set(el, state);
+      if(state.count >= 4){
+        state.count = 0;
+        tapState.set(el, state);
+        el.classList.add('tap-flash');
+        setTimeout(() => el.classList.remove('tap-flash'), 400);
+        openEditModal(el.getAttribute('data-key'), el.getAttribute('data-label') || el.getAttribute('data-key'));
+      }
+    });
+    el.addEventListener('contextmenu', (e) => e.preventDefault());
+  });
+
+  // ---------- Hidden 7-tap-on-footer to open the Admin Panel ----------
+  const footerTapZone = document.getElementById('footerTapZone');
+  const adminPanelOverlay = document.getElementById('adminPanelOverlay');
+  let footerTapCount = 0, footerTapLast = 0;
+  footerTapZone.addEventListener('click', () => {
+    const now = Date.now();
+    if(now - footerTapLast > 900){ footerTapCount = 0; }
+    footerTapCount += 1;
+    footerTapLast = now;
+    if(footerTapCount >= 7){
+      footerTapCount = 0;
+      adminPanelOverlay.classList.add('open');
+      if(typeof renderAdminCategorySections === 'function') renderAdminCategorySections();
+    }
+  });
+  document.getElementById('adminPanelClose').addEventListener('click', () => {
+    adminPanelOverlay.classList.remove('open');
+  });
+
+  // Multi-field modal (for adding topics / videos)
+  const multiOverlay = document.getElementById('multiModalOverlay');
+  const multiLabel = document.getElementById('multiModalLabel');
+  const multiFields = document.getElementById('multiModalFields');
+  const multiCancel = document.getElementById('multiModalCancel');
+  const multiSave = document.getElementById('multiModalSave');
+  let multiCallback = null;
+
+  function openMultiModal(label, fields, callback){
+    multiLabel.textContent = label;
+    multiFields.innerHTML = fields.map(f => {
+      if(f.type === 'select'){
+        const opts = f.options.map(o => '<option value="' + o.value + '">' + o.label + '</option>').join('');
+        return '<div class="field"><label>' + f.label + '</label><select id="mm-' + f.key + '">' + opts + '</select></div>';
+      }
+      if(f.type === 'textarea'){
+        return '<div class="field"><label>' + f.label + '</label><textarea id="mm-' + f.key + '" placeholder="' + (f.placeholder || '') + '" style="width:100%; min-height:160px; border:1.5px solid #E3DFD3; background:var(--paper); border-radius:12px; padding:12px 14px; font-size:13.5px; font-family:\'Inter\',sans-serif; color:var(--ink); resize:vertical;"></textarea></div>';
+      }
+      return '<div class="field"><label>' + f.label + '</label><input type="text" id="mm-' + f.key + '" placeholder="' + (f.placeholder || '') + '"></div>';
+    }).join('');
+    multiCallback = callback;
+    multiOverlay.classList.add('open');
+  }
+  multiCancel.addEventListener('click', () => multiOverlay.classList.remove('open'));
+  multiOverlay.addEventListener('click', (e) => { if(e.target === multiOverlay) multiOverlay.classList.remove('open'); });
+  multiSave.addEventListener('click', () => {
+    if(multiCallback){
+      const values = {};
+      multiFields.querySelectorAll('input, select, textarea').forEach(inp => { values[inp.id.replace('mm-', '')] = inp.value.trim(); });
+      multiCallback(values);
+    }
+    multiOverlay.classList.remove('open');
+  });
+
+  // ---------- Demo video click (free, always visible) ----------
+  function getYouTubeId(url){
+    if(!url) return null;
+    const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : null;
+  }
+  document.getElementById('demoVideoCard').addEventListener('click', () => {
+    const thumb = document.getElementById('demoVideoThumb');
+    const id = thumb.getAttribute('data-ytid');
+    if(id){
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.style.width = '100%';
+      iframe.style.aspectRatio = '16/9';
+      iframe.style.border = 'none';
+      iframe.style.display = 'block';
+      thumb.replaceWith(iframe);
+    }
+  });
+
+  // ---------- Access helpers: free reading after a simple 7-digit "login" ----------
+  function isLoggedIn(){ return localStorage.getItem('sp_loggedIn') === 'true'; }
+  function checkLoginState(){
+    const gate = document.getElementById('loginGate');
+    const wrap = document.getElementById('studySetsWrap');
+    if(isLoggedIn()){
+      gate.style.display = 'none';
+      wrap.style.display = 'block';
+    } else {
+      gate.style.display = 'block';
+      wrap.style.display = 'none';
+    }
+    if(typeof renderStudySets === 'function') renderStudySets();
+  }
+
+  document.getElementById('loginBtn').addEventListener('click', () => {
+    const val = document.getElementById('loginIdInput').value.trim();
+    const msgEl = document.getElementById('loginMsg');
+    if(!/^[0-9]{7}$/.test(val)){
+      msgEl.textContent = 'Please enter exactly 7 digits.';
+      msgEl.style.color = '#E85D4C';
+      return;
+    }
+    localStorage.setItem('sp_loggedIn', 'true');
+    localStorage.setItem('sp_loginId', val);
+    msgEl.textContent = 'Logged in! ✓';
+    msgEl.style.color = '#7CFFB2';
+    checkLoginState();
+  });
+  if(isLoggedIn()){ document.getElementById('loginIdInput') && (document.getElementById('loginIdInput').value = localStorage.getItem('sp_loginId') || ''); }
+
+  // ---------- Study Sets: Grammar / TGT / PGT / LT / GIC Lecturer — 5 sets each, ~50 questions per set ----------
+  const CATEGORY_LABELS = { grammar: 'Grammar', tgt: 'TGT', pgt: 'PGT', lt: 'LT', gic: 'GIC Lecturer' };
+  function defaultCategorySets(label){
+    const sets = {};
+    for(let i = 1; i <= 5; i++){
+      sets['set' + i] = { title: label + ' — Set ' + i, questionsRaw: '' };
+    }
+    return { label: label, sets: sets };
+  }
+  const defaultStudySets = {
+    grammar: defaultCategorySets('Grammar'),
+    tgt: defaultCategorySets('TGT'),
+    pgt: defaultCategorySets('PGT'),
+    lt: defaultCategorySets('LT'),
+    gic: defaultCategorySets('GIC Lecturer')
+  };
+  let studySets = {};
+
+  db.ref('studySets').once('value').then((snap) => {
+    if(!snap.exists()){ db.ref('studySets').set(defaultStudySets); }
+  });
+  db.ref('studySets').on('value', (snap) => {
+    studySets = snap.val() || defaultStudySets;
+    renderStudySets();
+    if(typeof renderAdminCategorySections === 'function') renderAdminCategorySections();
+  });
+
+  function renderStudySets(){
+    const wrap = document.getElementById('studySetsWrap');
+    wrap.innerHTML = Object.keys(studySets).map(catKey => {
+      const cat = studySets[catKey];
+      const setKeys = Object.keys(cat.sets || {}).sort();
+      const rows = setKeys.map((setKey, i) => {
+        const set = cat.sets[setKey];
+        return '<div class="ss-set-row">' +
+          '<div class="ss-set-num">' + (i + 1) + '</div>' +
+          '<div class="ss-set-title">' + set.title + '</div>' +
+          '<div class="ss-read-btn" data-cat="' + catKey + '" data-set="' + setKey + '">Read</div>' +
+        '</div>';
+      }).join('');
+      return '<div class="ss-category">' +
+        '<h3 class="ss-cat-title">' + cat.label + '</h3>' +
+        '<div class="ss-sets-list">' + rows + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  document.getElementById('studySetsWrap').addEventListener('click', (e) => {
+    const readBtn = e.target.closest('.ss-read-btn');
+    if(readBtn){
+      const catKey = readBtn.getAttribute('data-cat');
+      const setKey = readBtn.getAttribute('data-set');
+      const set = studySets[catKey].sets[setKey];
+      openQuestionsViewer(set, catKey, setKey);
+    }
+  });
+
+  // ---------- Parse pasted questions text into structured list ----------
+  function parseQuestions(raw){
+    if(!raw) return [];
+    const parts = raw.split(/\n(?=\s*\d+[\.\)]\s)/);
+    return parts.map(p => p.trim()).filter(Boolean).map((block, i) => {
+      const lines = block.split('\n').map(l => l.trim()).filter(Boolean);
+      const question = (lines[0] || '').replace(/^\d+[\.\)]\s*/, '');
+      const options = lines.slice(1);
+      return { number: i + 1, question: question, options: options };
+    });
+  }
+
+  // ---------- In-app plain viewer for pasted questions (kept simple for reading; no videos here — Free Sets are questions-only) ----------
+  const questionsViewer = document.getElementById('questionsViewerOverlay');
+  function openQuestionsViewer(set, catKey, setKey){
+    const questions = parseQuestions(set.questionsRaw);
+    document.getElementById('qvTitle').textContent = set.title;
+
+    document.getElementById('qvCards').innerHTML = questions.length ? questions.map((q) => {
+      const optHtml = q.options.length ? '<div class="qv-options">' + q.options.map(o => '<div class="qv-opt">' + o + '</div>').join('') + '</div>' : '';
+      return '<div class="qv-card"><span class="qv-num">' + q.number + '</span><span class="qv-question">' + q.question + '</span>' + optHtml + '</div>';
+    }).join('') : '<p style="color:var(--ink-soft); font-size:13px;">No questions added to this set yet.</p>';
+    document.getElementById('qvDownloadBtn').setAttribute('data-cat', catKey);
+    document.getElementById('qvDownloadBtn').setAttribute('data-set', setKey);
+    questionsViewer.classList.add('open');
+  }
+  document.getElementById('qvClose').addEventListener('click', () => questionsViewer.classList.remove('open'));
+
+  // ---------- Colourful PDF generation via jsPDF (the download stays VIP-styled even though on-screen reading is plain) ----------
+  function generateQuestionsPdf(title, questions){
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const margin = 40;
+    const palette = ['#D4A017', '#1B6B79', '#E85D4C', '#12203D'];
+    let y = 0;
+
+    function drawHeader(){
+      doc.setFillColor('#12203D');
+      doc.rect(0, 0, pageW, 74, 'F');
+      doc.setFillColor('#D4A017');
+      doc.rect(0, 74, pageW, 4, 'F');
+      doc.setTextColor('#ffffff');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(18);
+      doc.text(title, margin, 40);
+      doc.setFontSize(10);
+      doc.setTextColor('#D4A017');
+      doc.text(currentContent.coachingLine1 || 'Shree English Classes', margin, 60);
+      y = 100;
+    }
+    drawHeader();
+
+    questions.forEach((q, idx) => {
+      const color = palette[idx % palette.length];
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11.5);
+      const qLines = doc.splitTextToSize(q.number + '.  ' + q.question, pageW - margin * 2 - 24);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10.5);
+      let optLines = [];
+      q.options.forEach(o => { optLines = optLines.concat(doc.splitTextToSize(o, pageW - margin * 2 - 40)); });
+      const blockHeight = 14 + qLines.length * 15 + (optLines.length ? optLines.length * 13 + 6 : 0) + 14;
+
+      if(y + blockHeight > pageH - margin){
+        doc.addPage();
+        y = margin;
+      }
+
+      doc.setFillColor(color);
+      doc.roundedRect(margin, y, 5, blockHeight, 2, 2, 'F');
+      doc.setFillColor('#F5F3EC');
+      doc.roundedRect(margin + 5, y, pageW - margin * 2 - 5, blockHeight, 4, 4, 'F');
+
+      let ty = y + 18;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11.5);
+      doc.setTextColor('#12203D');
+      qLines.forEach(line => { doc.text(line, margin + 18, ty); ty += 15; });
+
+      if(optLines.length){
+        ty += 4;
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10.5);
+        doc.setTextColor('#3a3a3a');
+        optLines.forEach(line => { doc.text(line, margin + 30, ty); ty += 13; });
+      }
+      y += blockHeight + 12;
+    });
+
+    const pageCount = doc.internal.getNumberOfPages();
+    for(let p = 1; p <= pageCount; p++){
+      doc.setPage(p);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor('#999999');
+      doc.text('Page ' + p + ' of ' + pageCount, pageW - margin - 60, pageH - 20);
+    }
+
+    doc.save(title.replace(/[^a-z0-9]+/gi, '_') + '.pdf');
+  }
+
+  // ---------- Per-PDF payment (₹25) ----------
+  function pdfPaidKey(catKey, setKey){ return catKey + '_' + setKey; }
+  function isPdfPaidLocally(catKey, setKey){
+    return localStorage.getItem('sp_paid_' + pdfPaidKey(catKey, setKey)) === 'true';
+  }
+  const pdfPayOverlay = document.getElementById('pdfPayOverlay');
+  let pendingPdfTarget = null;
+
+  document.getElementById('qvDownloadBtn').addEventListener('click', (e) => {
+    const catKey = e.target.getAttribute('data-cat');
+    const setKey = e.target.getAttribute('data-set');
+    const set = studySets[catKey].sets[setKey];
+    if(isPdfPaidLocally(catKey, setKey)){
+      generateQuestionsPdf(set.title, parseQuestions(set.questionsRaw));
+      return;
+    }
+    pendingPdfTarget = { catKey: catKey, setKey: setKey, title: set.title, questionsRaw: set.questionsRaw, trigger: 'download' };
+    document.getElementById('pdfPayMsg').textContent = '';
+    const savedMobile = localStorage.getItem('sp_mobile') || '';
+    document.getElementById('pdfPayMobileInput').value = savedMobile;
+    pdfPayOverlay.classList.add('open');
+  });
+
+  document.getElementById('pdfPayCancel').addEventListener('click', () => pdfPayOverlay.classList.remove('open'));
+  pdfPayOverlay.addEventListener('click', (e) => { if(e.target === pdfPayOverlay) pdfPayOverlay.classList.remove('open'); });
+
+  document.getElementById('pdfPayCheckBtn').addEventListener('click', () => {
+    const mobile = document.getElementById('pdfPayMobileInput').value.trim();
+    const msgEl = document.getElementById('pdfPayMsg');
+    if(!/^[0-9]{10}$/.test(mobile)){
+      msgEl.textContent = 'Please enter a valid 10-digit mobile number.';
+      msgEl.style.color = '#E85D4C';
+      return;
+    }
+    if(!pendingPdfTarget) return;
+    const key = pdfPaidKey(pendingPdfTarget.catKey, pendingPdfTarget.setKey);
+    db.ref('paidPdfs/' + mobile + '/' + key).once('value').then((snap) => {
+      if(snap.val() === true){
+        localStorage.setItem('sp_mobile', mobile);
+        localStorage.setItem('sp_paid_' + key, 'true');
+        msgEl.textContent = 'Payment confirmed! ✓';
+        msgEl.style.color = '#1F7A3D';
+        if(pendingPdfTarget.trigger === 'video'){
+          const set = studySets[pendingPdfTarget.catKey].sets[pendingPdfTarget.setKey];
+          setTimeout(() => {
+            pdfPayOverlay.classList.remove('open');
+            openQuestionsViewer(set, pendingPdfTarget.catKey, pendingPdfTarget.setKey);
+          }, 500);
+        } else {
+          msgEl.textContent = 'Payment confirmed! Downloading...';
+          generateQuestionsPdf(pendingPdfTarget.title, parseQuestions(pendingPdfTarget.questionsRaw));
+          setTimeout(() => pdfPayOverlay.classList.remove('open'), 700);
+        }
+      } else {
+        msgEl.textContent = 'Payment not found yet for this number. Pay ₹25 via the QR above, then message us on WhatsApp with your mobile number — we\'ll confirm within a few minutes.';
+        msgEl.style.color = '#E85D4C';
+      }
+    });
+  });
+
+  // ---------- Admin Panel: category accordion (sets + videos + payments) is rendered further below,
+  // once both studySets and videoLibrary are loaded — see renderAdminCategorySections() ----------
+
+
+  // ================= VIDEO LIBRARY (separate from Free Sets — paid per category) =================
+  const defaultVideoLibrary = {
+    grammar: { label: 'Grammar', videos: {} },
+    tgt: { label: 'TGT', videos: {} },
+    pgt: { label: 'PGT', videos: {} },
+    lt: { label: 'LT', videos: {} },
+    gic: { label: 'GIC Lecturer', videos: {} }
+  };
+  let videoLibrary = {};
+
+  db.ref('videoLibrary').once('value').then((snap) => {
+    if(!snap.exists()){ db.ref('videoLibrary').set(defaultVideoLibrary); }
+  });
+  db.ref('videoLibrary').on('value', (snap) => {
+    videoLibrary = snap.val() || defaultVideoLibrary;
+    renderVideoLibraryPublic();
+    if(typeof renderAdminCategorySections === 'function') renderAdminCategorySections();
+  });
+
+  function isVideoCategoryPaidLocally(catKey){
+    return localStorage.getItem('sp_vidpaid_' + catKey) === 'true';
+  }
+
+  function renderVideoLibraryPublic(){
+    const wrap = document.getElementById('videoLibraryWrap');
+    if(!wrap) return;
+    wrap.innerHTML = Object.keys(videoLibrary).map(catKey => {
+      const cat = videoLibrary[catKey];
+      const videoKeys = Object.keys(cat.videos || {});
+      const paid = isVideoCategoryPaidLocally(catKey);
+      let body;
+      if(!videoKeys.length){
+        body = '<p style="color:var(--ink-soft); font-size:12.5px;">No videos added yet.</p>';
+      } else if(paid){
+        body = videoKeys.map(vKey => {
+          const v = cat.videos[vKey];
+          const ytId = getYouTubeId(v.url);
+          const thumbBg = ytId ? "background-image:url('https://img.youtube.com/vi/" + ytId + "/hqdefault.jpg')" : "";
+          return '<div class="vl-video-card ss-video-card">' +
+            '<div class="vl-video-thumb ss-video-thumb" style="' + thumbBg + '" data-ytid="' + (ytId || '') + '">' +
+              '<div class="play-btn"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div>' +
+            '</div>' +
+            '<div class="vl-video-meta"><div class="yt-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div><div class="title">' + (v.title || 'Video') + '</div></div>' +
+          '</div>';
+        }).join('');
+      } else {
+        body = '<div class="qv-video-locked ss-video-lock" data-cat="' + catKey + '">🔒 <span>' + videoKeys.length + ' video' + (videoKeys.length !== 1 ? 's' : '') + ' — Unlock this category</span></div>';
+      }
+      return '<div class="ss-category"><h3 class="ss-cat-title">' + cat.label + '</h3>' + body + '</div>';
+    }).join('');
+  }
+
+  document.getElementById('videoLibraryWrap').addEventListener('click', (e) => {
+    const thumb = e.target.closest('.ss-video-thumb');
+    if(thumb){
+      const id = thumb.getAttribute('data-ytid');
+      if(id){
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+        iframe.allowFullscreen = true;
+        thumb.replaceWith(iframe);
+      }
+      return;
+    }
+    const lock = e.target.closest('.ss-video-lock');
+    if(lock){
+      const catKey = lock.getAttribute('data-cat');
+      pendingVideoCategory = catKey;
+      document.getElementById('videoPayTitle').textContent = 'Unlock ' + videoLibrary[catKey].label + ' Videos';
+      document.getElementById('videoPayMsg').textContent = '';
+      document.getElementById('videoPayMobileInput').value = localStorage.getItem('sp_mobile') || '';
+      videoPayOverlay.classList.add('open');
+    }
+  });
+
+  const videoPayOverlay = document.getElementById('videoPayOverlay');
+  let pendingVideoCategory = null;
+  document.getElementById('videoPayCancel').addEventListener('click', () => videoPayOverlay.classList.remove('open'));
+  videoPayOverlay.addEventListener('click', (e) => { if(e.target === videoPayOverlay) videoPayOverlay.classList.remove('open'); });
+
+  document.getElementById('videoPayCheckBtn').addEventListener('click', () => {
+    const mobile = document.getElementById('videoPayMobileInput').value.trim();
+    const msgEl = document.getElementById('videoPayMsg');
+    if(!/^[0-9]{10}$/.test(mobile)){
+      msgEl.textContent = 'Please enter a valid 10-digit mobile number.';
+      msgEl.style.color = '#E85D4C';
+      return;
+    }
+    if(!pendingVideoCategory) return;
+    db.ref('paidVideoCategories/' + mobile + '/' + pendingVideoCategory).once('value').then((snap) => {
+      if(snap.val() === true){
+        localStorage.setItem('sp_mobile', mobile);
+        localStorage.setItem('sp_vidpaid_' + pendingVideoCategory, 'true');
+        msgEl.textContent = 'Payment confirmed! ✓';
+        msgEl.style.color = '#1F7A3D';
+        renderVideoLibraryPublic();
+        setTimeout(() => videoPayOverlay.classList.remove('open'), 700);
+      } else {
+        msgEl.textContent = 'Payment not found yet for this number. Pay via the QR above, then message us on WhatsApp with your mobile number — we\'ll confirm within a few minutes.';
+        msgEl.style.color = '#E85D4C';
+      }
+    });
+  });
+
+  // Restore video category access on load, per category, for this device's saved mobile
+  (function restoreVideoAccess(){
+    const savedMobile = localStorage.getItem('sp_mobile');
+    if(!savedMobile) return;
+    Object.keys(defaultVideoLibrary).forEach(catKey => {
+      db.ref('paidVideoCategories/' + savedMobile + '/' + catKey).once('value').then((snap) => {
+        if(snap.val() === true){
+          localStorage.setItem('sp_vidpaid_' + catKey, 'true');
+          renderVideoLibraryPublic();
+        }
+      });
+    });
+  })();
+
+  // ---------- Admin Panel: category-wise accordion (Grammar / TGT / PGT / LT / GIC Lecturer) ----------
+  // Each section shows its own PDF sets (paste content + generate PDF, per-set paid unlock)
+  // and its own Videos (add/remove, category-wide paid unlock). Only students with a paid
+  // unlock for that specific category/set can see the content the admin adds — this is enforced
+  // by the existing paidPdfs / paidVideoCategories checks in the public-facing render functions.
+  const ACC_CHEVRON = '<svg class="admin-acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+
+  function renderAdminCategorySections(){
+    const wrap = document.getElementById('adminCategorySections');
+    if(!wrap || !Object.keys(studySets).length) return;
+    wrap.innerHTML = Object.keys(CATEGORY_LABELS).map(catKey => {
+      const label = CATEGORY_LABELS[catKey];
+      const cat = studySets[catKey] || { sets: {} };
+      const setKeys = Object.keys(cat.sets || {}).sort();
+      const setRows = setKeys.map((setKey, i) => {
+        const set = cat.sets[setKey] || {};
+        return '<div class="admin-set-row">' +
+          '<span>' + (set.title || (label + ' — Set ' + (i + 1))) + '</span>' +
+          '<button class="admin-edit-set-btn" data-cat="' + catKey + '" data-set="' + setKey + '">Edit</button>' +
+        '</div>';
+      }).join('');
+
+      const vcat = videoLibrary[catKey] || { videos: {} };
+      const videoKeys = Object.keys(vcat.videos || {});
+      const videoRows = videoKeys.map(vKey => {
+        const v = vcat.videos[vKey] || {};
+        return '<div class="admin-video-row"><span>▸ ' + (v.title || 'Video') + '</span>' +
+          '<button class="admin-video-remove" data-cat="' + catKey + '" data-video="' + vKey + '">✕</button></div>';
+      }).join('');
+
+      return '<div class="admin-acc-item" data-acc="cat-' + catKey + '">' +
+        '<button class="admin-acc-header"><span>' + label + ' Section</span>' + ACC_CHEVRON + '</button>' +
+        '<div class="admin-acc-body">' +
+          '<div class="admin-acc-subhead">PDF Content — paste questions, generate PDF</div>' +
+          setRows +
+          '<button class="admin-mark-btn admin-mark-pdf-paid" data-cat="' + catKey + '">+ Mark a ' + label + ' PDF as Paid</button>' +
+          '<div class="admin-acc-subhead">Videos — add / remove</div>' +
+          videoRows +
+          '<button class="admin-add-video" data-cat="' + catKey + '" style="margin-top:8px;">+ Add ' + label + ' Video</button>' +
+          '<button class="btn btn-primary admin-mark-video-paid" data-cat="' + catKey + '" style="max-width:100%; margin-top:8px;">+ Mark ' + label + ' Video Access as Paid</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // Accordion open/close — only one section open at a time
+  document.getElementById('adminAccordion').addEventListener('click', (e) => {
+    const header = e.target.closest('.admin-acc-header');
+    if(!header) return;
+    const item = header.closest('.admin-acc-item');
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('#adminAccordion .admin-acc-item.open').forEach(el => el.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
+  });
+
+  // All category-section actions (edit set / mark PDF paid / add-remove video / mark video paid)
+  document.getElementById('adminCategorySections').addEventListener('click', (e) => {
+    const editBtn = e.target.closest('.admin-edit-set-btn');
+    if(editBtn){
+      const catKey = editBtn.getAttribute('data-cat');
+      const setKey = editBtn.getAttribute('data-set');
+      const set = studySets[catKey].sets[setKey];
+      openMultiModal('Edit ' + studySets[catKey].label + ' Set', [
+        { key: 'title', label: 'Set Title', placeholder: 'e.g. Grammar — Set 1' },
+        { key: 'questionsRaw', label: 'Paste up to 50 Questions (numbered 1. 2. 3...)', type: 'textarea', placeholder: '1. Question text\na) option\nb) option\n\n2. Next question...' }
+      ], (values) => {
+        db.ref('studySets/' + catKey + '/sets/' + setKey).update({
+          title: values.title || set.title,
+          questionsRaw: values.questionsRaw
+        }).then(() => showSyncBadge('Set saved ✓'));
+      });
+      document.getElementById('mm-title').value = set.title;
+      document.getElementById('mm-questionsRaw').value = set.questionsRaw || '';
+      return;
+    }
+
+    const markPdfBtn = e.target.closest('.admin-mark-pdf-paid');
+    if(markPdfBtn){
+      const catKey = markPdfBtn.getAttribute('data-cat');
+      openMultiModal('Mark a ' + CATEGORY_LABELS[catKey] + ' PDF as Paid', [
+        { key: 'mobile', label: 'Student Mobile Number', placeholder: '10-digit mobile number' },
+        { key: 'setNumber', label: 'Set Number', type: 'select', options: [
+          { value: '1', label: 'Set 1' }, { value: '2', label: 'Set 2' }, { value: '3', label: 'Set 3' },
+          { value: '4', label: 'Set 4' }, { value: '5', label: 'Set 5' }
+        ] }
+      ], (values) => {
+        const mobile = (values.mobile || '').trim();
+        if(!/^[0-9]{10}$/.test(mobile)){ alert('Please enter a valid 10-digit mobile number.'); return; }
+        const key = catKey + '_set' + values.setNumber;
+        db.ref('paidPdfs/' + mobile + '/' + key).set(true).then(() => {
+          alert('Marked as paid ✓\n\n' + mobile + ' can now download ' + CATEGORY_LABELS[catKey] + ' Set ' + values.setNumber + '.');
+        });
+      });
+      return;
+    }
+
+    const addVideoBtn = e.target.closest('.admin-add-video');
+    if(addVideoBtn){
+      const catKey = addVideoBtn.getAttribute('data-cat');
+      openMultiModal('Add Video — ' + CATEGORY_LABELS[catKey], [
+        { key: 'title', label: 'Video Title', placeholder: 'e.g. Tenses Explained' },
+        { key: 'url', label: 'YouTube Link', placeholder: 'https://youtu.be/...' }
+      ], (values) => {
+        if(!values.url) return;
+        db.ref('videoLibrary/' + catKey + '/videos').push({ title: values.title || 'Video', url: values.url })
+          .then(() => showSyncBadge('Video added ✓'));
+      });
+      return;
+    }
+
+    const removeVideoBtn = e.target.closest('.admin-video-remove');
+    if(removeVideoBtn){
+      const catKey = removeVideoBtn.getAttribute('data-cat');
+      const vKey = removeVideoBtn.getAttribute('data-video');
+      db.ref('videoLibrary/' + catKey + '/videos/' + vKey).remove().then(() => showSyncBadge('Video removed ✓'));
+      return;
+    }
+
+    const markVideoPaidBtn = e.target.closest('.admin-mark-video-paid');
+    if(markVideoPaidBtn){
+      const catKey = markVideoPaidBtn.getAttribute('data-cat');
+      openMultiModal('Mark ' + CATEGORY_LABELS[catKey] + ' Video Access as Paid', [
+        { key: 'mobile', label: 'Student Mobile Number', placeholder: '10-digit mobile number' }
+      ], (values) => {
+        const mobile = (values.mobile || '').trim();
+        if(!/^[0-9]{10}$/.test(mobile)){ alert('Please enter a valid 10-digit mobile number.'); return; }
+        db.ref('paidVideoCategories/' + mobile + '/' + catKey).set(true).then(() => {
+          alert('Marked as paid ✓\n\n' + mobile + ' can now watch all ' + CATEGORY_LABELS[catKey] + ' videos.');
+        });
+      });
+    }
+  });
+
+  // ---------- Forms (Inquiry + Registration) -> Firebase ----------
+  function wireForm(prefix, dbPath, submitLabel, getExtra, extraFieldIds, validateExtra){
+    const submitBtn = document.getElementById(prefix + '-submit');
+    const statusEl = document.getElementById(prefix + '-status');
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const name = document.getElementById(prefix + '-name').value.trim();
+      const state = document.getElementById(prefix + '-state').value.trim();
+      const district = document.getElementById(prefix + '-district').value.trim();
+      const mobile = document.getElementById(prefix + '-mobile').value.trim();
+      const email = document.getElementById(prefix + '-email').value.trim();
+      const exam = document.getElementById(prefix + '-exam').value;
+
+      if(!name || !mobile){
+        statusEl.textContent = 'Name and Mobile number are required.';
+        statusEl.style.color = '#E85D4C';
+        return;
+      }
+      if(!/^[0-9]{10}$/.test(mobile)){
+        statusEl.textContent = 'Mobile number must be 10 digits.';
+        statusEl.style.color = '#E85D4C';
+        return;
+      }
+      if(validateExtra){
+        const err = validateExtra();
+        if(err){
+          statusEl.textContent = err;
+          statusEl.style.color = '#E85D4C';
+          return;
+        }
+      }
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+      const payload = Object.assign({
+        name: name, state: state, district: district, mobile: mobile, email: email, exam: exam,
+        submittedAt: new Date().toISOString()
+      }, getExtra ? getExtra() : {});
+      db.ref(dbPath).push(payload).then(() => {
+        statusEl.textContent = 'Successfully submitted! We will contact you soon.';
+        statusEl.style.color = '#1F7A3D';
+        ['name','state','district','mobile','email','exam'].concat(extraFieldIds || []).forEach(f => {
+          const el = document.getElementById(prefix + '-' + f);
+          if(!el) return;
+          if(el.type === 'checkbox'){ el.checked = false; } else { el.value = ''; }
+        });
+        if(extraFieldIds){
+          const planTypeWrap = document.getElementById(prefix + '-planTypeWrap');
+          const planWrap = document.getElementById(prefix + '-planWrap');
+          const amountWrap = document.getElementById(prefix + '-amountWrap');
+          const expiryWrap = document.getElementById(prefix + '-expiryWrap');
+          if(planTypeWrap) planTypeWrap.style.display = 'none';
+          if(planWrap) planWrap.style.display = 'none';
+          if(amountWrap) amountWrap.style.display = 'none';
+          if(expiryWrap) expiryWrap.style.display = 'none';
+        }
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitLabel;
+      }).catch(() => {
+        statusEl.textContent = 'Something went wrong, please try again.';
+        statusEl.style.color = '#E85D4C';
+        submitBtn.disabled = false;
+        submitBtn.textContent = submitLabel;
+      });
+    });
+  }
+  wireForm('inquiry', 'inquiries', 'Submit Inquiry');
+
+  // ---------- Admin: show Inquiry & Registration submissions ----------
+  function renderSubmissionsList(containerId, data, isReg){
+    const wrap = document.getElementById(containerId);
+    if(!data){ wrap.innerHTML = '<p style="opacity:0.6; color:#fff;">No submissions yet.</p>'; return; }
+    const entries = Object.keys(data).map(k => Object.assign({ _key: k }, data[k]));
+    entries.sort((a, b) => (b.submittedAt || '').localeCompare(a.submittedAt || ''));
+    wrap.innerHTML = entries.map(e => {
+      const dateStr = e.submittedAt ? new Date(e.submittedAt).toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '';
+      let extra = '';
+      if(isReg && e.planAmount){ extra += '<br>Plan: ' + (e.planType || '') + ' — ' + e.planDurationMonths + ' month(s) — ₹' + e.planAmount; }
+      if(isReg && e.planExpiry){ extra += '<br>Registered: ' + (e.feeDate || '—') + ' • Valid till: ' + e.planExpiry; }
+      const waMsg = encodeURIComponent('Hi ' + (e.name || '') + ', regarding your ' + (isReg ? 'registration' : 'inquiry') + ' for ' + (e.exam || 'the course') + ' — ');
+      const waLink = e.mobile ? 'https://wa.me/91' + e.mobile + '?text=' + waMsg : '';
+      const mailLink = e.email ? 'mailto:' + e.email + '?subject=' + encodeURIComponent('Regarding your ' + (isReg ? 'registration' : 'inquiry')) : '';
+      return '<div class="admin-set-block" style="background:#0F1E3B;">' +
+        '<div style="color:#fff; font-weight:700; font-size:13px;">' + (e.name || '—') + ' • ' + (e.mobile || '—') + '</div>' +
+        '<div style="color:rgba(255,255,255,0.8); margin-top:4px;">' + (e.exam || '—') + (e.district ? ' • ' + e.district : '') + (e.state ? ', ' + e.state : '') + extra + '</div>' +
+        (e.email ? '<div style="color:rgba(255,255,255,0.6); margin-top:2px;">' + e.email + '</div>' : '') +
+        '<div style="color:rgba(255,255,255,0.45); font-size:10.5px; margin-top:4px;">' + dateStr + '</div>' +
+        '<div style="display:flex; gap:8px; margin-top:10px;">' +
+          (waLink ? '<a href="' + waLink + '" target="_blank" rel="noopener" style="flex:1; text-align:center; background:#25D366; color:#fff; font-size:11px; font-weight:700; padding:8px; border-radius:8px; text-decoration:none;">WhatsApp</a>' : '') +
+          (mailLink ? '<a href="' + mailLink + '" style="flex:1; text-align:center; background:var(--teal); color:#fff; font-size:11px; font-weight:700; padding:8px; border-radius:8px; text-decoration:none;">Email</a>' : '') +
+          '<button class="admin-submission-delete" data-container="' + containerId + '" data-key="' + e._key + '" style="flex:0 0 auto; background:var(--coral); color:#fff; font-size:11px; font-weight:700; padding:8px 12px; border-radius:8px; border:none; cursor:pointer;">Delete</button>' +
+        '</div>' +
+        '</div>';
+    }).join('');
+  }
+  db.ref('inquiries').on('value', (snap) => renderSubmissionsList('adminInquiriesList', snap.val(), false));
+  db.ref('registrations').on('value', (snap) => renderSubmissionsList('adminRegistrationsList', snap.val(), true));
+
+  // Delete a single inquiry/registration entry (with confirmation, since it can't be undone)
+  document.getElementById('adminInquiriesList').addEventListener('click', handleSubmissionDelete);
+  document.getElementById('adminRegistrationsList').addEventListener('click', handleSubmissionDelete);
+  function handleSubmissionDelete(e){
+    const btn = e.target.closest('.admin-submission-delete');
+    if(!btn) return;
+    const containerId = btn.getAttribute('data-container');
+    const key = btn.getAttribute('data-key');
+    const dbPath = containerId === 'adminInquiriesList' ? 'inquiries' : 'registrations';
+    if(!confirm('Is entry ko permanently delete kar dein?')) return;
+    db.ref(dbPath + '/' + key).remove().then(() => showSyncBadge('Deleted ✓'));
+  }
+
+  // "View Inquiry" / "View Registration" — click to reveal that section's submissions
+  document.getElementById('viewInquiryBtn').addEventListener('click', function(){
+    const list = document.getElementById('adminInquiriesList');
+    const nowOpen = list.style.display !== 'block';
+    list.style.display = nowOpen ? 'block' : 'none';
+    this.textContent = nowOpen ? 'Hide Inquiry' : 'View Inquiry';
+  });
+  document.getElementById('viewRegistrationBtn').addEventListener('click', function(){
+    const list = document.getElementById('adminRegistrationsList');
+    const nowOpen = list.style.display !== 'block';
+    list.style.display = nowOpen ? 'block' : 'none';
+    this.textContent = nowOpen ? 'Hide Registration' : 'View Registration';
+  });
+
+  // ---------- Registration: exam -> plan pricing (₹), auto amount + auto QR + auto expiry ----------
+  const PLAN_PRICING_WITH_VIDEOS = {
+    tgt: { '1': 999,  '3': 1999, '5': 3999 },
+    pgt: { '1': 1599, '3': 2999, '5': 4999 },
+    lt:  { '1': 1599, '3': 2999, '5': 4999 },
+    gic: { '1': 1599, '3': 2999, '5': 4999 }
+  };
+  const PLAN_PRICING_WITHOUT_VIDEOS = {
+    tgt: { '1': 599 },
+    pgt: { '1': 999 },
+    lt:  { '1': 999 },
+    gic: { '1': 999 }
+  };
+  const EXAM_TO_CATKEY = { 'TGT': 'tgt', 'PGT': 'pgt', 'LT': 'lt', 'GIC Lecturer': 'gic' };
+
+  function currentRegAmount(){
+    const catKey = EXAM_TO_CATKEY[document.getElementById('reg-exam').value];
+    const planType = document.getElementById('reg-planType').value;
+    if(!catKey || !planType) return null;
+    if(planType === 'withVideos'){
+      const duration = document.getElementById('reg-duration').value;
+      return { amount: PLAN_PRICING_WITH_VIDEOS[catKey][duration], duration: duration };
+    }
+    return { amount: PLAN_PRICING_WITHOUT_VIDEOS[catKey]['1'], duration: '1' };
+  }
+
+  function updateRegPlan(){
+    const exam = document.getElementById('reg-exam').value;
+    const catKey = EXAM_TO_CATKEY[exam];
+    const planTypeWrap = document.getElementById('reg-planTypeWrap');
+    const planWrap = document.getElementById('reg-planWrap');
+    const amountWrap = document.getElementById('reg-amountWrap');
+    const expiryWrap = document.getElementById('reg-expiryWrap');
+    const paidConfirm = document.getElementById('reg-paidConfirm');
+
+    if(!catKey){
+      planTypeWrap.style.display = 'none';
+      planWrap.style.display = 'none';
+      amountWrap.style.display = 'none';
+      expiryWrap.style.display = 'none';
+      return;
+    }
+    planTypeWrap.style.display = 'block';
+
+    const planType = document.getElementById('reg-planType').value;
+    if(!planType){
+      planWrap.style.display = 'none';
+      amountWrap.style.display = 'none';
+      expiryWrap.style.display = 'none';
+      return;
+    }
+    // "Without Videos" is deliberately month-to-month only, so aspirants keep renewing
+    planWrap.style.display = (planType === 'withVideos') ? 'block' : 'none';
+
+    const result = currentRegAmount();
+    if(!result) return;
+    paidConfirm.checked = false; // re-confirm payment if plan/amount changes
+    document.getElementById('reg-amountDisplay').textContent = '₹' + result.amount;
+    document.getElementById('reg-paidConfirmAmt').textContent = result.amount;
+    const upiId = currentContent.upiId || 'yourupi@bank';
+    const upiLink = 'upi://pay?pa=' + encodeURIComponent(upiId) + '&pn=' + encodeURIComponent(currentContent.coachingLine1 || 'StudyPoint') + '&am=' + result.amount + '&cu=INR';
+    document.getElementById('reg-qr').src = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent(upiLink);
+    amountWrap.style.display = 'block';
+
+    const today = new Date();
+    const expiryDate = new Date(today);
+    expiryDate.setMonth(expiryDate.getMonth() + parseInt(result.duration, 10));
+    document.getElementById('reg-expiry').value = expiryDate.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+    expiryWrap.style.display = 'block';
+  }
+  document.getElementById('reg-exam').addEventListener('change', updateRegPlan);
+  document.getElementById('reg-planType').addEventListener('change', updateRegPlan);
+  document.getElementById('reg-duration').addEventListener('change', updateRegPlan);
+
+  // "Pay Now" opens the UPI app directly (via upi:// intent). When the student comes back
+  // to this page after paying, we auto-tick the confirmation box and auto-submit the form.
+  // Note: this only detects "returned from the payment app", not a verified payment —
+  // real automatic verification needs a payment gateway, which this app doesn't have.
+  let regPaymentAttempted = false;
+  document.getElementById('reg-payNowBtn').addEventListener('click', () => {
+    const result = currentRegAmount();
+    if(!result) return;
+    const upiId = currentContent.upiId || 'yourupi@bank';
+    const upiLink = 'upi://pay?pa=' + encodeURIComponent(upiId) + '&pn=' + encodeURIComponent(currentContent.coachingLine1 || 'StudyPoint') + '&am=' + result.amount + '&cu=INR';
+    regPaymentAttempted = true;
+    window.location.href = upiLink;
+  });
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'visible' && regPaymentAttempted){
+      regPaymentAttempted = false;
+      const paidConfirm = document.getElementById('reg-paidConfirm');
+      if(paidConfirm && !paidConfirm.checked){
+        paidConfirm.checked = true;
+        setTimeout(() => document.getElementById('reg-submit').click(), 400);
+      }
+    }
+  });
+
+  wireForm('reg', 'registrations', 'Register', () => {
+    const catKey = EXAM_TO_CATKEY[document.getElementById('reg-exam').value];
+    const planType = document.getElementById('reg-planType').value;
+    const extra = {};
+    if(catKey && planType){
+      const result = currentRegAmount();
+      const today = new Date();
+      const expiryDate = new Date(today);
+      expiryDate.setMonth(expiryDate.getMonth() + parseInt(result.duration, 10));
+      extra.planCategory = catKey;
+      extra.planType = planType === 'withVideos' ? 'With Videos' : 'Without Videos';
+      extra.planDurationMonths = result.duration;
+      extra.planAmount = result.amount;
+      extra.feeDate = today.toISOString().slice(0, 10);
+      extra.planExpiry = expiryDate.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+      extra.planExpiryISO = expiryDate.toISOString().slice(0, 10);
+    }
+    return extra;
+  }, ['planType', 'duration', 'expiry', 'paidConfirm'], () => {
+    // Validation: block submit until exam + plan + payment confirmation are all in place
+    const exam = document.getElementById('reg-exam').value;
+    if(!exam) return 'Please select an exam.';
+    const catKey = EXAM_TO_CATKEY[exam];
+    if(catKey){
+      const planType = document.getElementById('reg-planType').value;
+      if(!planType) return 'Please select With Videos or Without Videos.';
+      if(planType === 'withVideos' && !document.getElementById('reg-duration').value){
+        return 'Please select a plan duration.';
+      }
+      if(!document.getElementById('reg-paidConfirm').checked){
+        return 'Please scan the QR, complete the payment, then tick the confirmation box.';
+      }
+    }
+    return null;
+  });
+
+  // ---------- LIVE CLASS (Agora audio + PDF.js slide sync + Firebase hand-raise/mute control) ----------
+  document.getElementById('changeLivePinBtn').addEventListener('click', () => {
+    const current = currentContent.liveTeacherPin || '1234';
+    const newPin = prompt('Enter new Teacher PIN (numbers or letters):', current);
+    if(newPin === null || !newPin.trim()) return;
+    db.ref('content/liveTeacherPin').set(newPin.trim()).then(() => showSyncBadge('PIN updated ✓'));
+  });  const AGORA_APP_ID = '5b0232817d3b4c33a96d515a476e6a5f';
+  const AGORA_TOKEN_SERVER = 'https://shreeyog-agora-token-server.vercel.app/api/generate-token';
+  const LIVE_CHANNEL = 'ENGLISH_HUB_LIVE';
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  let liveClient = null, liveLocalAudioTrack = null, liveUid = null, liveIsTeacher = false;
+  let livePdfDoc = null, livePageRendering = false, livePageNumPending = null;
+
+  function liveShowMsg(text, isError){
+    const el = document.getElementById('liveJoinMsg');
+    el.textContent = text;
+    el.style.color = isError ? '#E85D4C' : '#1F7A3D';
+  }
+
+  async function liveGetToken(uid, role){
+    const res = await fetch(AGORA_TOKEN_SERVER + '?channel=' + encodeURIComponent(LIVE_CHANNEL) + '&uid=' + uid + '&role=' + role);
+    if(!res.ok) throw new Error('Token server error');
+    const data = await res.json();
+    if(!data.token) throw new Error(data.error || 'No token returned');
+    return data.token;
+  }
+
+  function liveRenderPage(num){
+    if(!livePdfDoc) return;
+    livePageRendering = true;
+    livePdfDoc.getPage(num).then((page) => {
+      const canvas = document.getElementById('livePdfCanvas');
+      const ctx = canvas.getContext('2d');
+      const wrap = document.getElementById('livePdfWrap');
+      const containerWidth = wrap.clientWidth;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2.5); // sharp on retina/high-DPI phones without huge memory use
+      const baseViewport = page.getViewport({ scale: 1 });
+      const cssScale = containerWidth / baseViewport.width;
+      const renderScale = cssScale * dpr;
+      const viewport = page.getViewport({ scale: renderScale });
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      canvas.style.width = containerWidth + 'px';
+      canvas.style.height = (containerWidth * viewport.height / viewport.width) + 'px';
+      document.getElementById('livePdfEmpty').style.display = 'none';
+      page.render({ canvasContext: ctx, viewport: viewport }).promise.then(() => {
+        livePageRendering = false;
+        if(livePageNumPending !== null){
+          const p = livePageNumPending;
+          livePageNumPending = null;
+          liveRenderPage(p);
+        }
+      });
+      liveResetZoom(); // new page → back to fit-to-screen
+      liveResizeAnnotCanvas();
+      if(liveIsTeacher){
+        document.getElementById('livePageLabel').textContent = 'Page ' + num + ' / ' + livePdfDoc.numPages;
+      }
+    });
+  }
+
+  function liveQueueRenderPage(num){
+    if(livePageRendering){ livePageNumPending = num; } else { liveRenderPage(num); }
+  }
+
+  // ---------- Annotation layer: Pointer / Marker / Highlighter (teacher draws, synced to students via Firebase) ----------
+  let liveTool = null; // null | 'pointer' | 'marker' | 'highlighter'
+  let liveDrawing = false;
+  let liveCurrentStrokeId = null, liveCurrentStrokePoints = [];
+  let liveCurrentPageStrokes = {}, liveAnnotPageRef = null, livePointerRef = null;
+  let livePointerState = null, livePointerFadeTimer = null;
+  let livePointerLastSend = 0, liveStrokeLastSend = 0;
+  let liveParticipantsRef = null, liveParticipantsCache = {};
+  const ANNOT_STROKE_THROTTLE = 140, ANNOT_POINTER_THROTTLE = 90;
+
+  function liveResizeAnnotCanvas(){
+    const wrap = document.getElementById('livePdfWrap');
+    const canvas = document.getElementById('liveAnnotCanvas');
+    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    const w = wrap.clientWidth, h = wrap.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+    canvas.getContext('2d').setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  window.addEventListener('resize', () => { if(document.getElementById('liveRoom').style.display !== 'none') liveResizeAnnotCanvas(); });
+
+  function liveRenderAnnotLayer(){
+    const canvas = document.getElementById('liveAnnotCanvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    ctx.clearRect(0, 0, w, h);
+    Object.values(liveCurrentPageStrokes).forEach((stroke) => {
+      if(!stroke.points || stroke.points.length < 2) return;
+      ctx.beginPath();
+      ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      if(stroke.tool === 'highlighter'){ ctx.strokeStyle = stroke.color || '#FFD400'; ctx.globalAlpha = 0.35; ctx.lineWidth = 16; }
+      else { ctx.strokeStyle = stroke.color || '#E23B3B'; ctx.globalAlpha = 1; ctx.lineWidth = 4; }
+      stroke.points.forEach((p, i) => {
+        const x = p.x * w, y = p.y * h;
+        if(i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+    });
+    if(livePointerState){
+      const x = livePointerState.x * w, y = livePointerState.y * h;
+      ctx.beginPath(); ctx.fillStyle = 'rgba(226,59,59,0.85)'; ctx.arc(x, y, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.strokeStyle = 'rgba(226,59,59,0.4)'; ctx.lineWidth = 3; ctx.arc(x, y, 15, 0, Math.PI * 2); ctx.stroke();
+    }
+  }
+
+  function liveAttachAnnotListener(pageNum){
+    if(liveAnnotPageRef) liveAnnotPageRef.off();
+    liveAnnotPageRef = db.ref('liveClass/annotations/' + pageNum);
+    liveAnnotPageRef.on('value', (snap) => {
+      liveCurrentPageStrokes = snap.val() || {};
+      liveRenderAnnotLayer();
+    });
+  }
+
+  function liveRenderParticipantsList(){
+    const wrap = document.getElementById('liveParticipantsList');
+    const entries = Object.values(liveParticipantsCache).sort((a, b) => (a.role === 'teacher' ? -1 : 1) - (b.role === 'teacher' ? -1 : 1));
+    if(!entries.length){ wrap.innerHTML = '<div style="padding:14px 4px; color:var(--ink-soft); font-size:13px;">No one has joined yet.</div>'; return; }
+    wrap.innerHTML = entries.map((p) => {
+      const name = p.name || 'Student';
+      const initial = name.trim().charAt(0) || 'S';
+      const isTeacher = p.role === 'teacher';
+      return '<div class="live-participant-row">' +
+        '<div class="live-participant-avatar' + (isTeacher ? ' teacher' : '') + '">' + initial + '</div>' +
+        '<div><div>' + name + '</div><div class="live-participant-role">' + (isTeacher ? 'Teacher' : 'Student') + '</div></div>' +
+        '</div>';
+    }).join('');
+  }
+  document.getElementById('liveParticipantsBtn').addEventListener('click', () => {
+    document.getElementById('liveParticipantsOverlay').classList.add('open');
+  });
+  document.getElementById('liveParticipantsCloseBtn').addEventListener('click', () => {
+    document.getElementById('liveParticipantsOverlay').classList.remove('open');
+  });
+  document.getElementById('liveParticipantsOverlay').addEventListener('click', (e) => {
+    if(e.target.id === 'liveParticipantsOverlay') e.target.classList.remove('open');
+  });
+
+  function liveSetTool(tool){
+    liveTool = (liveTool === tool) ? null : tool;
+    document.querySelectorAll('.board-tool-btn[data-tool]').forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-tool') === liveTool);
+    });
+    document.getElementById('liveAnnotCanvas').classList.toggle('tool-active', !!liveTool);
+    if(liveTool) liveResetZoom(); // keep drawing aligned to fit-to-screen view
+  }
+  document.getElementById('liveToolPointer').addEventListener('click', () => liveSetTool('pointer'));
+  document.getElementById('liveToolMarker').addEventListener('click', () => liveSetTool('marker'));
+  document.getElementById('liveToolHighlighter').addEventListener('click', () => liveSetTool('highlighter'));
+  document.getElementById('liveAnnotClearBtn').addEventListener('click', () => {
+    db.ref('liveClass/currentPage').once('value').then((snap) => {
+      db.ref('liveClass/annotations/' + (snap.val() || 1)).remove();
+    });
+  });
+
+  function liveAnnotRelPos(e){
+    const canvas = document.getElementById('liveAnnotCanvas');
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches && e.touches[0] ? e.touches[0] : e;
+    return {
+      x: Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width)),
+      y: Math.max(0, Math.min(1, (touch.clientY - rect.top) / rect.height))
+    };
+  }
+
+  const liveAnnotCanvasEl = document.getElementById('liveAnnotCanvas');
+  liveAnnotCanvasEl.addEventListener('touchstart', (e) => {
+    if(!liveIsTeacher || !liveTool) return;
+    e.stopPropagation();
+    liveDrawing = true;
+    const pos = liveAnnotRelPos(e);
+    if(liveTool === 'pointer'){
+      db.ref('liveClass/pointer').set({ x: pos.x, y: pos.y, active: true, ts: Date.now() });
+    } else {
+      liveCurrentStrokeId = 'p' + Date.now() + Math.floor(Math.random() * 1000);
+      liveCurrentStrokePoints = [pos];
+      liveCurrentPageStrokes[liveCurrentStrokeId] = { tool: liveTool, color: liveTool === 'highlighter' ? '#FFD400' : '#E23B3B', points: liveCurrentStrokePoints };
+      liveRenderAnnotLayer();
+    }
+  }, { passive: true });
+
+  liveAnnotCanvasEl.addEventListener('touchmove', (e) => {
+    if(!liveIsTeacher || !liveTool || !liveDrawing) return;
+    e.stopPropagation();
+    const pos = liveAnnotRelPos(e);
+    const now = Date.now();
+    if(liveTool === 'pointer'){
+      if(now - livePointerLastSend > ANNOT_POINTER_THROTTLE){
+        livePointerLastSend = now;
+        db.ref('liveClass/pointer').set({ x: pos.x, y: pos.y, active: true, ts: now });
+      }
+    } else {
+      liveCurrentStrokePoints.push(pos);
+      liveCurrentPageStrokes[liveCurrentStrokeId] = { tool: liveTool, color: liveTool === 'highlighter' ? '#FFD400' : '#E23B3B', points: liveCurrentStrokePoints };
+      liveRenderAnnotLayer();
+      if(now - liveStrokeLastSend > ANNOT_STROKE_THROTTLE){
+        liveStrokeLastSend = now;
+        db.ref('liveClass/currentPage').once('value').then((snap) => {
+          db.ref('liveClass/annotations/' + (snap.val() || 1) + '/' + liveCurrentStrokeId).set(liveCurrentPageStrokes[liveCurrentStrokeId]);
+        });
+      }
+    }
+  }, { passive: true });
+
+  liveAnnotCanvasEl.addEventListener('touchend', (e) => {
+    if(!liveIsTeacher || !liveTool) return;
+    e.stopPropagation();
+    liveDrawing = false;
+    if(liveTool === 'pointer'){
+      db.ref('liveClass/pointer').update({ active: false });
+    } else if(liveCurrentStrokeId){
+      db.ref('liveClass/currentPage').once('value').then((snap) => {
+        db.ref('liveClass/annotations/' + (snap.val() || 1) + '/' + liveCurrentStrokeId).set(liveCurrentPageStrokes[liveCurrentStrokeId]);
+      });
+      liveCurrentStrokeId = null; liveCurrentStrokePoints = [];
+    }
+  });
+
+  // ---------- Pinch-to-zoom + drag-to-pan for the shared PDF (independent of the app's fixed page zoom) ----------
+  let liveZoom = { scale: 1, x: 0, y: 0 };
+  let liveTouchState = null;
+
+  function liveApplyZoomTransform(){
+    const canvas = document.getElementById('livePdfCanvas');
+    canvas.style.transform = 'translate(' + liveZoom.x + 'px,' + liveZoom.y + 'px) scale(' + liveZoom.scale + ')';
+    canvas.style.transformOrigin = '0 0';
+  }
+  function liveResetZoom(){
+    liveZoom = { scale: 1, x: 0, y: 0 };
+    liveApplyZoomTransform();
+  }
+  function liveClampPan(){
+    const wrap = document.getElementById('livePdfWrap');
+    const canvas = document.getElementById('livePdfCanvas');
+    const maxX = 0, minX = Math.min(0, wrap.clientWidth - canvas.clientWidth * liveZoom.scale);
+    const maxY = 0, minY = Math.min(0, wrap.clientHeight - canvas.clientHeight * liveZoom.scale);
+    liveZoom.x = Math.max(minX, Math.min(maxX, liveZoom.x));
+    liveZoom.y = Math.max(minY, Math.min(maxY, liveZoom.y));
+  }
+  function liveDist(t1, t2){
+    return Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+  }
+  const livePdfWrapEl = document.getElementById('livePdfWrap');
+  livePdfWrapEl.addEventListener('touchstart', (e) => {
+    if(e.touches.length === 2){
+      liveTouchState = { mode: 'pinch', startDist: liveDist(e.touches[0], e.touches[1]), startScale: liveZoom.scale };
+    } else if(e.touches.length === 1 && liveZoom.scale > 1){
+      liveTouchState = { mode: 'pan', startX: e.touches[0].clientX, startY: e.touches[0].clientY, origX: liveZoom.x, origY: liveZoom.y };
+    }
+  }, { passive: true });
+  livePdfWrapEl.addEventListener('touchmove', (e) => {
+    if(!liveTouchState) return;
+    if(liveTouchState.mode === 'pinch' && e.touches.length === 2){
+      const newDist = liveDist(e.touches[0], e.touches[1]);
+      let scale = liveTouchState.startScale * (newDist / liveTouchState.startDist);
+      liveZoom.scale = Math.max(1, Math.min(4, scale));
+      liveClampPan();
+      liveApplyZoomTransform();
+    } else if(liveTouchState.mode === 'pan' && e.touches.length === 1){
+      liveZoom.x = liveTouchState.origX + (e.touches[0].clientX - liveTouchState.startX);
+      liveZoom.y = liveTouchState.origY + (e.touches[0].clientY - liveTouchState.startY);
+      liveClampPan();
+      liveApplyZoomTransform();
+    }
+  }, { passive: true });
+  livePdfWrapEl.addEventListener('touchend', () => { liveTouchState = null; });
+  let liveLastTap = 0;
+  livePdfWrapEl.addEventListener('touchend', () => {
+    const now = Date.now();
+    if(now - liveLastTap < 300){ liveResetZoom(); }
+    liveLastTap = now;
+  });
+
+  function liveLoadPdfFromBase64(base64){
+    if(!base64){ livePdfDoc = null; document.getElementById('livePdfEmpty').style.display = 'block'; document.getElementById('livePdfEmpty').textContent = 'Waiting for teacher to share slides…'; return; }
+    try{
+      const raw = atob(base64.split(',').pop());
+      const bytes = new Uint8Array(raw.length);
+      for(let i = 0; i < raw.length; i++){ bytes[i] = raw.charCodeAt(i); }
+      pdfjsLib.getDocument({ data: bytes }).promise.then((pdf) => {
+        livePdfDoc = pdf;
+        db.ref('liveClass/currentPage').once('value').then((snap) => {
+          liveRenderPage(snap.val() || 1);
+        });
+      });
+    } catch(e){
+      document.getElementById('livePdfEmpty').textContent = 'Could not load slides.';
+    }
+  }
+
+  async function liveJoinChannel(role){
+    liveUid = Math.floor(Math.random() * 900000) + 100000;
+    const token = await liveGetToken(liveUid, 'host');
+    liveClient = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
+    liveClient.on('user-published', async (user, mediaType) => {
+      await liveClient.subscribe(user, mediaType);
+      if(mediaType === 'audio'){ user.audioTrack.play(); }
+    });
+    await liveClient.join(AGORA_APP_ID, LIVE_CHANNEL, token, liveUid);
+    liveLocalAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+    liveLocalAudioTrack.setEnabled(liveIsTeacher); // teacher starts unmuted, students start muted
+    await liveClient.publish([liveLocalAudioTrack]);
+  }
+
+  function liveEnterRoom(){
+    document.getElementById('liveJoinScreen').style.display = 'none';
+    document.getElementById('liveRoom').style.display = 'block';
+    document.getElementById('liveTeacherPageNav').style.display = liveIsTeacher ? 'flex' : 'none';
+    document.getElementById('liveTeacherPanel').style.display = liveIsTeacher ? 'block' : 'none';
+    document.getElementById('liveAnnotToolbar').style.display = liveIsTeacher ? 'flex' : 'none';
+    liveUpdateMicBtn(liveIsTeacher);
+    document.body.classList.add('live-focus-mode'); // hide everything else so students aren't distracted
+    window.scrollTo(0, 0);
+    liveResizeAnnotCanvas();
+
+    db.ref('liveClass/pdfBase64').on('value', (snap) => liveLoadPdfFromBase64(snap.val()));
+    db.ref('liveClass/currentPage').on('value', (snap) => {
+      const pageNum = snap.val() || 1;
+      if(livePdfDoc) liveQueueRenderPage(pageNum);
+      liveAttachAnnotListener(pageNum);
+    });
+    livePointerRef = db.ref('liveClass/pointer');
+    livePointerRef.on('value', (snap) => {
+      const p = snap.val();
+      clearTimeout(livePointerFadeTimer);
+      if(p && p.active){
+        livePointerState = { x: p.x, y: p.y };
+        liveRenderAnnotLayer();
+        livePointerFadeTimer = setTimeout(() => { livePointerState = null; liveRenderAnnotLayer(); }, 900);
+      } else {
+        livePointerState = null;
+        liveRenderAnnotLayer();
+      }
+    });
+
+    // ---------- Presence: who's joined right now (auto-removes on disconnect) ----------
+    const myName = (liveIsTeacher ? 'Teacher' : (document.getElementById('liveNameInput').value.trim() || 'Student'));
+    const myPresenceRef = db.ref('liveClass/participants/' + liveUid);
+    myPresenceRef.set({ name: myName, role: liveIsTeacher ? 'teacher' : 'student', ts: Date.now() });
+    myPresenceRef.onDisconnect().remove();
+    liveParticipantsRef = db.ref('liveClass/participants');
+    liveParticipantsRef.on('value', (snap) => {
+      const data = snap.val() || {};
+      const count = Object.keys(data).length;
+      document.getElementById('liveParticipantsCount').textContent = count;
+      document.getElementById('liveParticipantsModalCount').textContent = count;
+      liveParticipantsCache = data;
+      liveRenderParticipantsList();
+    });
+
+    if(!liveIsTeacher){
+      db.ref('liveClass/unmuted/' + liveUid).on('value', (snap) => {
+        const allowed = snap.val() === true;
+        if(liveLocalAudioTrack) liveLocalAudioTrack.setEnabled(allowed);
+        liveUpdateMicBtn(allowed);
+      });
+    } else {
+      db.ref('liveClass/hands').on('value', (snap) => {
+        const wrap = document.getElementById('liveHandsList');
+        const hands = snap.val();
+        if(!hands){ wrap.innerHTML = 'No hands raised.'; return; }
+        wrap.innerHTML = Object.keys(hands).map((uid) => {
+          const h = hands[uid];
+          return '<div class="live-hand-row"><span>✋ ' + (h.name || 'Student') + '</span>' +
+            '<button data-uid="' + uid + '">Unmute</button></div>';
+        }).join('');
+      });
+      db.ref('liveClass/active').set(true);
+    }
+  }
+
+  function liveUpdateMicBtn(unmuted){
+    const btn = document.getElementById('liveMicBtn');
+    if(unmuted){ btn.textContent = '🎤 Unmuted'; btn.classList.add('unmuted'); }
+    else { btn.textContent = '🎤 Muted'; btn.classList.remove('unmuted'); }
+  }
+
+  document.getElementById('liveJoinStudentBtn').addEventListener('click', async () => {
+    const name = document.getElementById('liveNameInput').value.trim();
+    if(!name){ liveShowMsg('Please enter your name first.', true); return; }
+    liveShowMsg('Joining…', false);
+    try{
+      liveIsTeacher = false;
+      await liveJoinChannel('audience');
+      liveEnterRoom();
+    } catch(e){
+      liveShowMsg('Could not join: ' + e.message, true);
+    }
+  });
+
+  document.getElementById('liveTeacherLoginBtn').addEventListener('click', async () => {
+    const pin = prompt('Enter Teacher PIN:');
+    if(pin === null) return;
+    if(pin !== (currentContent.liveTeacherPin || '1234')){
+      liveShowMsg('Incorrect PIN.', true);
+      return;
+    }
+    liveShowMsg('Starting class…', false);
+    try{
+      liveIsTeacher = true;
+      await liveJoinChannel('host');
+      liveEnterRoom();
+    } catch(e){
+      liveShowMsg('Could not start class: ' + e.message, true);
+    }
+  });
+
+  document.getElementById('liveMicBtn').addEventListener('click', () => {
+    // Teacher can freely toggle their own mic; students' mic is controlled by the teacher (see liveClass/unmuted)
+    if(!liveIsTeacher || !liveLocalAudioTrack) return;
+    const nowEnabled = !liveLocalAudioTrack.enabled;
+    liveLocalAudioTrack.setEnabled(nowEnabled);
+    liveUpdateMicBtn(nowEnabled);
+  });
+
+  document.getElementById('liveRaiseHandBtn').addEventListener('click', function(){
+    if(liveIsTeacher || !liveUid) return;
+    const btn = this;
+    const raised = btn.classList.toggle('active');
+    btn.textContent = raised ? '✋ Hand Raised' : '✋ Raise Hand';
+    if(raised){
+      db.ref('liveClass/hands/' + liveUid).set({ name: document.getElementById('liveNameInput').value.trim() || 'Student', ts: Date.now() });
+    } else {
+      db.ref('liveClass/hands/' + liveUid).remove();
+    }
+  });
+
+  document.getElementById('liveHandsList').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-uid]');
+    if(!btn) return;
+    const uid = btn.getAttribute('data-uid');
+    db.ref('liveClass/unmuted/' + uid).set(true);
+    db.ref('liveClass/hands/' + uid).remove();
+  });
+
+  document.getElementById('livePdfUpload').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    if(file.size > 5 * 1024 * 1024){
+      alert('PDF is too large (max ~5MB). Please compress it first.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      db.ref('liveClass/pdfBase64').set(ev.target.result);
+      db.ref('liveClass/currentPage').set(1);
+      showSyncBadge('Slides shared ✓');
+    };
+    reader.readAsDataURL(file);
+  });
+
+  document.getElementById('livePrevPage').addEventListener('click', () => {
+    db.ref('liveClass/currentPage').once('value').then((snap) => {
+      const p = Math.max(1, (snap.val() || 1) - 1);
+      db.ref('liveClass/currentPage').set(p);
+    });
+  });
+  document.getElementById('liveNextPage').addEventListener('click', () => {
+    db.ref('liveClass/currentPage').once('value').then((snap) => {
+      const max = livePdfDoc ? livePdfDoc.numPages : 1;
+      const p = Math.min(max, (snap.val() || 1) + 1);
+      db.ref('liveClass/currentPage').set(p);
+    });
+  });
+
+  document.getElementById('liveLeaveBtn').addEventListener('click', async () => {
+    try{
+      if(liveLocalAudioTrack){ liveLocalAudioTrack.close(); liveLocalAudioTrack = null; }
+      if(liveClient){ await liveClient.leave(); liveClient = null; }
+      if(liveIsTeacher){ db.ref('liveClass/active').set(false); }
+      if(!liveIsTeacher && liveUid){ db.ref('liveClass/hands/' + liveUid).remove(); }
+      if(liveAnnotPageRef){ liveAnnotPageRef.off(); liveAnnotPageRef = null; }
+      if(livePointerRef){ livePointerRef.off(); livePointerRef = null; }
+      if(liveParticipantsRef){ liveParticipantsRef.off(); liveParticipantsRef = null; }
+      if(liveUid){ db.ref('liveClass/participants/' + liveUid).remove(); }
+      liveTool = null; liveCurrentPageStrokes = {}; livePointerState = null; liveParticipantsCache = {};
+      document.getElementById('liveParticipantsOverlay').classList.remove('open');
+      document.querySelectorAll('.board-tool-btn[data-tool]').forEach((btn) => btn.classList.remove('active'));
+      document.getElementById('liveAnnotCanvas').classList.remove('tool-active');
+    } catch(e){ /* ignore */ }
+    document.getElementById('liveJoinScreen').style.display = 'block';
+    document.getElementById('liveRoom').style.display = 'none';
+    document.body.classList.remove('live-focus-mode'); // restore the rest of the app
+    liveShowMsg('', false);
+  });
+
+  db.ref('liveClass/active').on('value', (snap) => {
+    const badge = document.getElementById('liveStatusBadge');
+    if(snap.val() === true){
+      badge.textContent = '● Live Now';
+      badge.classList.add('on');
+    } else {
+      badge.textContent = '● Not Live Right Now';
+      badge.classList.remove('on');
+    }
+  });
+
+  // Teacher shares one link — opening it jumps straight to the Live Class join screen
+  document.getElementById('liveShareLinkBtn').addEventListener('click', async () => {
+    const link = window.location.origin + window.location.pathname + '#liveClassSection';
+    const shareText = 'Join today\'s live class here: ' + link;
+    if(navigator.share){
+      try{ await navigator.share({ title: 'Live Class', text: shareText, url: link }); return; } catch(e){ /* user cancelled or unsupported, fall through to copy */ }
+    }
+    try{
+      await navigator.clipboard.writeText(link);
+      alert('Link copied ✓\n\nPaste it in your WhatsApp broadcast/group:\n' + link);
+    } catch(e){
+      prompt('Copy this link and share it with students:', link);
+    }
+  });
+
+  // If someone opens the app directly via the shared #liveClassSection link, scroll straight there
+  if(window.location.hash === '#liveClassSection'){
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const el = document.getElementById('liveClassSection');
+        if(el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 600); // wait for splash screen to dismiss
+    });
+  }
+
+  // ---------- Help Desk FAQ accordion ----------
+  document.getElementById('faqList').addEventListener('click', (e) => {
+    const q = e.target.closest('.faq-q');
+    if(q){ q.closest('.faq-item').classList.toggle('open'); }
+  });
+
+  // ---------- Splash screen ----------
+  const splashScreen = document.getElementById('splashScreen');
+  function dismissSplash(){ splashScreen.classList.add('hide'); }
+  splashScreen.addEventListener('click', dismissSplash);
+  setTimeout(dismissSplash, 2200);
+</script>
+</body>
+</html>
